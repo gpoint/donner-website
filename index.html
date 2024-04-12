@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" href="/favicon.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Donner | Giving Future </title>
+  <style>
+    .skiptranslate {
+      display: none;
+    }
+  </style>
+  <script src="https://checkout.flutterwave.com/v3.js"></script>
+  <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</head>
+
+<body style="overflow-x: hidden;">
+
+  <div id="app"></div>
+
+  <div style="display: none;">
+    <div id="google_translate_element"></div>
+  </div>
+
+  <script type="text/javascript">
+
+    function googleTranslateElementInit() {
+      google.translate.TranslateElement({ pageLanguage: 'en' }, 'google_translate_element');
+    }
+
+    window.googleTranslateElementInit();
+
+  </script>
+
+  <script type="module" src="/src/main.js"></script>
+
+</body>
+
+</html>
