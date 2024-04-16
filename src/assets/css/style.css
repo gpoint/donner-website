@@ -76,7 +76,7 @@
     hsla(0, 0%, 100%, 0)
   );
   --bs-body-font-family: var(--bs-font-sans-serif);
-  --bs-body-font-size: 1.1rem;
+  --bs-body-font-size: 0.75rem;
   --bs-body-font-weight: 400;
   --bs-body-line-height: 1.5;
   --bs-body-color: #67748e;
@@ -20278,13 +20278,13 @@ a {
 }
 .p,
 p {
-  font-size: 1.1rem;
+  font-size: 0.85rem;
 }
 .lead {
   font-size: 1.25rem;
 }
 .text-lg {
-  font-size: 1.125rem !important;
+  font-size: 1rem !important;
 }
 .text-sm {
   font-size: 0.875rem !important;

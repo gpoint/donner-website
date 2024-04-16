@@ -100,9 +100,18 @@ export default {
     height: 100vh;
     /* Full viewport height */
     overflow: hidden;
-}.floating-box {
+}
+.floating-box {
     /* Additional styling for floating boxes */
     transition: top 2s ease-in-out, left 2s ease-in-out;
+}
+.floating-box :hover{
+    /* Additional styling for floating boxes */
+    opacity: 1;
+    min-width: 250px !important;
+    object-fit: cover;
+    z-index: 90;
+    scale: zoom-in 2s ease-in-out;
 }
 .floating-box img{
     /* Additional styling for floating boxes */

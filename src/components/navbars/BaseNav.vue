@@ -14,52 +14,52 @@
         <div class="collapse navbar-collapse w-100 pt-3 pb-2 py-lg-0" :class="show" id="navigation">
             <ul class="navbar-nav navbar-nav-hover mx-auto">
                 <li class="nav-item mx-2">
-                    <RouterLink to="/" class="text-lg nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center" role="button">
+                    <RouterLink to="/" class=" nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center" role="button">
                         <strong v-if="isActiveRoute('home')" class="text-gradient bg-gradient-primary">Home</strong>
                         <span v-else>Home</span>
                     </RouterLink>
                 </li>
                     <li class="nav-item mx-2">
-                        <RouterLink to="/about" class="text-lg nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center" role="button">
+                        <RouterLink to="/about" class=" nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center" role="button">
                             <strong v-if="isActiveRoute('about')" class="text-gradient bg-gradient-primary">About</strong>
                             <span v-else>About Us</span>
                         </RouterLink>
                     </li>
 
                 <!-- <li class="nav-item mx-2">
-                    <RouterLink to="/careers" class="text-lg nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center" role="button">
+                    <RouterLink to="/careers" class=" nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center" role="button">
                         <strong v-if="isActiveRoute('careers')" class="text-gradient bg-gradient-primary">Careers</strong>
                         <span v-else>Careers</span>
                     </RouterLink>
                 </li> -->
                 <li class="nav-item mx-2">
-                    <RouterLink to="/projects" class="text-lg nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center" role="button">
+                    <RouterLink to="/projects" class=" nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center" role="button">
                         <strong v-if="isActiveRoute('projects')" class="text-gradient bg-gradient-primary">Projects</strong>
                         <span v-else>Projects</span>
                     </RouterLink>
                 </li>
                 <!-- <li class="nav-item mx-2">
-                    <RouterLink to="/resources" class="text-lg nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center" role="button">
+                    <RouterLink to="/resources" class=" nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center" role="button">
                         <strong v-if="isActiveRoute('resources')" class="text-gradient bg-gradient-primary">Resources</strong>
                         <span v-else>Resources</span>
                     </RouterLink>
                 </li>
                 <li class="nav-item mx-2">
-                    <RouterLink to="/volunteer" class="text-lg nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center" role="button">
+                    <RouterLink to="/volunteer" class=" nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center" role="button">
                         <strong v-if="isActiveRoute('volunteer')" class="text-gradient bg-gradient-primary">Volunteer</strong>
                         <span v-else>Volunteer</span>
                     </RouterLink>
                 </li> -->
                 <!-- <li class="nav-item mx-2">
-                    <RouterLink to="/contact" class="text-lg nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center" role="button">
+                    <RouterLink to="/contact" class=" nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center" role="button">
                         <strong v-if="isActiveRoute('contact')" class="text-gradient bg-gradient-primary">Contact Us</strong>
                         <span v-else>Contact Us</span>
                     </RouterLink>
                 </li> -->
 
                 <li class="nav-item mx-2 d-lg-none d-block">
-                    <RouterLink to="/donate" class="text-lg nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center" role="button">
-                        <strong class="text-gradient bg-gradient-primary">Donate</strong>
+                    <RouterLink to="/login" class=" nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center" role="button">
+                        <strong class="text-gradient bg-gradient-primary">Sign in</strong>
                     </RouterLink>
                 </li>
 
@@ -67,7 +67,7 @@
 
             <ul class="navbar-nav d-lg-block d-none">
                 <li class="nav-item">
-                    <RouterLink to="/donate" class="btn btn-sm  bg-gradient-primary  btn-round mb-0 me-1" role="button">Sign in</RouterLink>
+                    <RouterLink to="/login" class="btn btn-sm  bg-gradient-primary  btn-round mb-0 me-1" role="button">Sign in</RouterLink>
                 </li>
             </ul>
         </div>
