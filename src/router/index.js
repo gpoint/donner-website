@@ -58,6 +58,11 @@ const router = createRouter({
       name: "training",
       component: () => import("../views/TrainingView.vue"),
     },
+    {
+      path: "/:route",
+      name: "Error404",
+      component: () => import("../views/errors/NotFoundView.vue"),
+    },
   ],
 });
 
