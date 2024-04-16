@@ -50,17 +50,16 @@
                         <span v-else>Volunteer</span>
                     </RouterLink>
                 </li> -->
-                <li class="nav-item mx-2">
+                <!-- <li class="nav-item mx-2">
                     <RouterLink to="/contact" class="text-lg nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center" role="button">
                         <strong v-if="isActiveRoute('contact')" class="text-gradient bg-gradient-primary">Contact Us</strong>
                         <span v-else>Contact Us</span>
                     </RouterLink>
-                </li>
+                </li> -->
 
                 <li class="nav-item mx-2 d-lg-none d-block">
                     <RouterLink to="/donate" class="text-lg nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center" role="button">
-                        <strong v-if="isActiveRoute('donate')" class="text-gradient bg-gradient-primary">Donate</strong>
-                        <span v-else>Donate</span>
+                        <strong class="text-gradient bg-gradient-primary">Donate</strong>
                     </RouterLink>
                 </li>
 
@@ -68,7 +67,7 @@
 
             <ul class="navbar-nav d-lg-block d-none">
                 <li class="nav-item">
-                    <RouterLink to="/donate" class="btn btn-sm  bg-gradient-primary  btn-round mb-0 me-1" role="button">Donate</RouterLink>
+                    <RouterLink to="/donate" class="btn btn-sm  bg-gradient-primary  btn-round mb-0 me-1" role="button">Sign in</RouterLink>
                 </li>
             </ul>
         </div>

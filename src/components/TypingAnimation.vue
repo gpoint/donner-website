@@ -18,7 +18,7 @@ export default {
         },
         backSpeed: {
             type: Number,
-            default: 50,
+            default: 100,
         },
         startDelay: {
             type: Number,
@@ -48,6 +48,8 @@ export default {
                 startDelay: this.startDelay,
                 backDelay: this.backDelay,
                 loop: this.loop,
+                cursorChar: '',
+                
             });
         },
         destroyTyped() {

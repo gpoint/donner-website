@@ -1,28 +1,31 @@
 <template>
     <div>
         <!-- -------- START HEADER 1 w/ text and image on right ------- -->
-        <header class="bg-gradient-dark">
-            <div class="page-header min-vh-100" style="background-image: url(/img/backgrounds/auto-repair2.png);">
-                <span class="mask bg-gradient-primary opacity-9"></span>
+        <header class="bg-gradient-primary position-relative">
+            <div class="position-absolute z-index-1">
+                <HeroAnimation></HeroAnimation>
+            </div>
+            <div class="page-header min-vh-100" style="background-image: url(/img/shapes/waves-white.svg);">
+                <span class="mask bg-white opacity-0"></span>
                 <div class="container">
-                    <HeroAnimation></HeroAnimation>
-                    <div class="row position-relative z-index-1">
-                        <div class="col-lg-10 text-start my-auto">
+                    <div class="row z-index-1">
+                        <div class="col-lg-12 text-center mt-1">
                             <h1 class="text-white">
-                                We are dedicated to <TypingAnimation :strings="['Impact, Growth,  and Skills Development']"
-                                    :typeSpeed="50" :startDelay="500" :loop="false">
+                                We are dedicated to <TypingAnimation
+                                    :strings="['Giving']" :typeSpeed="250"
+                                    :startDelay="500" :loop="false">
                                 </TypingAnimation>
                             </h1>
 
-                            <p class="lead text-white text-start pe-5 mt-4">
+                            <p class="lead text-white text-center px-5 mt-4">
                                 We believe in people, invest in people, and build people.
-                                <br/>
-                                Our goal is to train, empower and support people, especially the youth; linking them with industry leaders and job opportunities.
+                                <br />
+                                Our goal is to empower and support non-profits and ordinary people in Africa receive donations and do more for their communities.
                             </p>
                             <br />
                             <div class="buttons">
                                 <a href="#impact" class="btn btn-lg btn-primary text-white">Learn More</a>
-                                <RouterLink to="/donate" class="btn btn-lg btn-light text-primary mx-4">Donate</RouterLink>
+                                <a to="https://app.donner.africa" class="btn btn-lg btn-white text-primary mx-4">Start a Raiser</a>
                             </div>
                         </div>
                     </div>
@@ -60,24 +63,31 @@
                             <p class="blockquote my-3 ps-2 text-dark text-gradient justify-content-between"
                                 style="font-size: 1rem;">
                                 <span class="text-bold">
-                                    Donner is a pioneering institution dedicated to Technical and Vocational Education and
+                                    Donner is a pioneering institution dedicated to Technical and Vocational Education
+                                    and
                                     Training (TVET), empowering individuals through technology, skills development, and
                                     entrepreneurial opportunities. Donner strives to revolutionize lives.
                                 </span>
                             </p>
                             <p class="text-dark text-gradient text-justify">
-                                Entering C-STEMP, many young adults find themselves without employment opportunities, with
-                                over 99% of individuals aged 17-26 facing unemployment and earning less than $1.5 per day.
+                                Entering C-STEMP, many young adults find themselves without employment opportunities,
+                                with
+                                over 99% of individuals aged 17-26 facing unemployment and earning less than $1.5 per
+                                day.
                                 However, those who complete the Donner program witness a remarkable transformation. On
-                                average, graduates see their annual income soar to over ₦100,000 boasting an impressive 80%
+                                average, graduates see their annual income soar to over ₦100,000 boasting an impressive
+                                80%
                                 retention rate in their employments over 12 months. This is the Donner advantage.
 
                             </p>
                             <p class="text-dark text-gradient text-justify">
-                                At the heart of our approach lies a unique understanding of the pressing need for education
+                                At the heart of our approach lies a unique understanding of the pressing need for
+                                education
                                 that is
-                                driven by the imperative to secure employment opportunities amidst severe economic hardship.
-                                Because of this understanding, our approach is rigorous technical training and hands-on work
+                                driven by the imperative to secure employment opportunities amidst severe economic
+                                hardship.
+                                Because of this understanding, our approach is rigorous technical training and hands-on
+                                work
                                 experience in high-demand, high-paying fields, Donner not only helps young adults secure
                                 employment but equips them with the skills to thrive and advance in their careers, thus
                                 transforming their lives and those of their families.
@@ -90,7 +100,8 @@
                     </div>
                     <div class="col-lg-5 col-md-8">
                         <div class="position-relative ms-md-5 d-none d-md-block d-lg-block d-xl-block h-100">
-                            <div class="w-100 h-100 bg-gradient-primary border-radius-xl position-absolute" alt=""></div>
+                            <div class="w-100 h-100 bg-gradient-primary border-radius-xl position-absolute" alt="">
+                            </div>
                             <img src="/img/backgrounds/sub-hero.jpg" style="object-fit: cover;height: 86%;"
                                 class="w-100 border-radius-xl my-5 ms-n5 position-absolute d-none d-lg-flex" alt="">
                         </div>
@@ -112,7 +123,8 @@
                     <div class="col-lg-4 mb-lg-0 mb-4">
 
                         <div class="card h-100">
-                            <img class="card-img-top" src="/img/causes/training.jpg" style="height: 300px; object-fit: cover">
+                            <img class="card-img-top" src="/img/causes/training.jpg"
+                                style="height: 300px; object-fit: cover">
                             <div class="position-relative overflow-hidden" style="height:50px;margin-top:-50px;">
                                 <div class="position-absolute w-100 top-0 z-index-1">
                                     <svg class="waves waves-sm" xmlns="http://www.w3.org/2000/svg"
@@ -124,12 +136,18 @@
                                             </path>
                                         </defs>
                                         <g class="moving-waves">
-                                            <use xlink:href="#card-wave" x="48" y="-1" fill="rgba(255,255,255,0.30"></use>
-                                            <use xlink:href="#card-wave" x="48" y="3" fill="rgba(255,255,255,0.35)"></use>
-                                            <use xlink:href="#card-wave" x="48" y="5" fill="rgba(255,255,255,0.25)"></use>
-                                            <use xlink:href="#card-wave" x="48" y="8" fill="rgba(255,255,255,0.20)"></use>
-                                            <use xlink:href="#card-wave" x="48" y="13" fill="rgba(255,255,255,0.15)"></use>
-                                            <use xlink:href="#card-wave" x="48" y="16" fill="rgba(255,255,255,0.99)"></use>
+                                            <use xlink:href="#card-wave" x="48" y="-1" fill="rgba(255,255,255,0.30">
+                                            </use>
+                                            <use xlink:href="#card-wave" x="48" y="3" fill="rgba(255,255,255,0.35)">
+                                            </use>
+                                            <use xlink:href="#card-wave" x="48" y="5" fill="rgba(255,255,255,0.25)">
+                                            </use>
+                                            <use xlink:href="#card-wave" x="48" y="8" fill="rgba(255,255,255,0.20)">
+                                            </use>
+                                            <use xlink:href="#card-wave" x="48" y="13" fill="rgba(255,255,255,0.15)">
+                                            </use>
+                                            <use xlink:href="#card-wave" x="48" y="16" fill="rgba(255,255,255,0.99)">
+                                            </use>
                                         </g>
                                     </svg>
                                 </div>
@@ -137,11 +155,11 @@
                             <div class="card-body">
                                 <h4 class="text-gradient text-dark">Skills Training</h4>
                                 <p class="text-gradient text-dark">
-                                    
-                                            Donner offers training and assessment aligned to
-                                            the National Skills Qualification Framework (NSQF) as regulated by the National
-                                            Board for Technical Education (NBTE) for the provision of skilled labour to
-                                            organizations and developers.
+
+                                    Donner offers training and assessment aligned to
+                                    the National Skills Qualification Framework (NSQF) as regulated by the National
+                                    Board for Technical Education (NBTE) for the provision of skilled labour to
+                                    organizations and developers.
                                 </p>
                                 <RouterLink to="/projects" class="text-primary icon-move-right">Learn More
                                     <i class="fas fa-arrow-right text-xs ms-1" aria-hidden="true"></i>
@@ -152,80 +170,92 @@
                     </div>
                     <div class="col-lg-4 mb-lg-0 mb-4">
 
-                            <div class="card h-100">
-                                <img class="card-img-top" src="/img/causes/6.jpg" style="height: 300px; object-fit: cover">
-                                <div class="position-relative overflow-hidden" style="height:50px;margin-top:-50px;">
-                                    <div class="position-absolute w-100 top-0 z-index-1">
-                                        <svg class="waves waves-sm" xmlns="http://www.w3.org/2000/svg"
-                                            xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 40"
-                                            preserveAspectRatio="none" shape-rendering="auto">
-                                            <defs>
-                                                <path id="card-wave"
-                                                    d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z">
-                                                </path>
-                                            </defs>
-                                            <g class="moving-waves">
-                                                <use xlink:href="#card-wave" x="48" y="-1" fill="rgba(255,255,255,0.30"></use>
-                                                <use xlink:href="#card-wave" x="48" y="3" fill="rgba(255,255,255,0.35)"></use>
-                                                <use xlink:href="#card-wave" x="48" y="5" fill="rgba(110,19,29,0.25)"></use>
-                                                <use xlink:href="#card-wave" x="48" y="8" fill="rgba(255,255,255,0.20)"></use>
-                                                <use xlink:href="#card-wave" x="48" y="13" fill="rgba(255,255,255,0.15)"></use>
-                                                <use xlink:href="#card-wave" x="48" y="16" fill="rgba(255,255,255,0.99)"></use>
-                                            </g>
-                                        </svg>
-                                    </div>
-                                </div>
-                                <div class="card-body">
-                                    <h4 class="text-gradient text-dark">Skills Advocacy</h4>
-                                    <p class="text-gradient text-dark">
-                                            C-STEMP's Construction Artisans Awards aim to ignite enthusiasm for vocational
-                                            trades, especially in housing and construction, celebrating skilled craftsmanship
-                                            and promoting participation.
-                                    </p>
-                                    <RouterLink to="/projects" class="text-primary icon-move-right">Learn More
-                                        <i class="fas fa-arrow-right text-xs ms-1" aria-hidden="true"></i>
-                                    </RouterLink>
+                        <div class="card h-100">
+                            <img class="card-img-top" src="/img/causes/6.jpg" style="height: 300px; object-fit: cover">
+                            <div class="position-relative overflow-hidden" style="height:50px;margin-top:-50px;">
+                                <div class="position-absolute w-100 top-0 z-index-1">
+                                    <svg class="waves waves-sm" xmlns="http://www.w3.org/2000/svg"
+                                        xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 40"
+                                        preserveAspectRatio="none" shape-rendering="auto">
+                                        <defs>
+                                            <path id="card-wave"
+                                                d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z">
+                                            </path>
+                                        </defs>
+                                        <g class="moving-waves">
+                                            <use xlink:href="#card-wave" x="48" y="-1" fill="rgba(255,255,255,0.30">
+                                            </use>
+                                            <use xlink:href="#card-wave" x="48" y="3" fill="rgba(255,255,255,0.35)">
+                                            </use>
+                                            <use xlink:href="#card-wave" x="48" y="5" fill="rgba(110,19,29,0.25)"></use>
+                                            <use xlink:href="#card-wave" x="48" y="8" fill="rgba(255,255,255,0.20)">
+                                            </use>
+                                            <use xlink:href="#card-wave" x="48" y="13" fill="rgba(255,255,255,0.15)">
+                                            </use>
+                                            <use xlink:href="#card-wave" x="48" y="16" fill="rgba(255,255,255,0.99)">
+                                            </use>
+                                        </g>
+                                    </svg>
                                 </div>
                             </div>
+                            <div class="card-body">
+                                <h4 class="text-gradient text-dark">Skills Advocacy</h4>
+                                <p class="text-gradient text-dark">
+                                    C-STEMP's Construction Artisans Awards aim to ignite enthusiasm for vocational
+                                    trades, especially in housing and construction, celebrating skilled craftsmanship
+                                    and promoting participation.
+                                </p>
+                                <RouterLink to="/projects" class="text-primary icon-move-right">Learn More
+                                    <i class="fas fa-arrow-right text-xs ms-1" aria-hidden="true"></i>
+                                </RouterLink>
+                            </div>
+                        </div>
 
                     </div>
                     <div class="col-lg-4">
 
-                            <div class="card h-100">
-                                <img class="card-img-top" src="/img/causes/jobs.jpg" style="height: 300px; object-fit: cover">
-                                <div class="position-relative overflow-hidden" style="height:50px;margin-top:-50px;">
-                                    <div class="position-absolute w-100 top-0 z-index-1">
-                                        <svg class="waves waves-sm" xmlns="http://www.w3.org/2000/svg"
-                                            xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 40"
-                                            preserveAspectRatio="none" shape-rendering="auto">
-                                            <defs>
-                                                <path id="card-wave"
-                                                    d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z">
-                                                </path>
-                                            </defs>
-                                            <g class="moving-waves">
-                                                <use xlink:href="#card-wave" x="48" y="-1" fill="rgba(255,255,255,0.30"></use>
-                                                <use xlink:href="#card-wave" x="48" y="3" fill="rgba(255,255,255,0.35)"></use>
-                                                <use xlink:href="#card-wave" x="48" y="5" fill="rgba(255,255,255,0.25)"></use>
-                                                <use xlink:href="#card-wave" x="48" y="8" fill="rgba(255,255,255,0.20)"></use>
-                                                <use xlink:href="#card-wave" x="48" y="13" fill="rgba(255,255,255,0.15)"></use>
-                                                <use xlink:href="#card-wave" x="48" y="16" fill="rgba(255,255,255,0.99)"></use>
-                                            </g>
-                                        </svg>
-                                    </div>
-                                </div>
-                                <div class="card-body">
-                                    <h4 class="text-gradient text-dark">Job Placement</h4>
-                                    <p class="text-gradient text-dark">
-                                            In line with our values which prioritize recruitment and selection directly to jobs,
-                                            Donner is in active collaboration with the Real Estate Developers Association of
-                                            Nigeria and other major mass employers of semi-skilled labour.
-                                    </p>
-                                    <RouterLink to="/projects" class="text-primary icon-move-right">Learn More
-                                        <i class="fas fa-arrow-right text-xs ms-1" aria-hidden="true"></i>
-                                    </RouterLink>
+                        <div class="card h-100">
+                            <img class="card-img-top" src="/img/causes/jobs.jpg"
+                                style="height: 300px; object-fit: cover">
+                            <div class="position-relative overflow-hidden" style="height:50px;margin-top:-50px;">
+                                <div class="position-absolute w-100 top-0 z-index-1">
+                                    <svg class="waves waves-sm" xmlns="http://www.w3.org/2000/svg"
+                                        xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 40"
+                                        preserveAspectRatio="none" shape-rendering="auto">
+                                        <defs>
+                                            <path id="card-wave"
+                                                d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z">
+                                            </path>
+                                        </defs>
+                                        <g class="moving-waves">
+                                            <use xlink:href="#card-wave" x="48" y="-1" fill="rgba(255,255,255,0.30">
+                                            </use>
+                                            <use xlink:href="#card-wave" x="48" y="3" fill="rgba(255,255,255,0.35)">
+                                            </use>
+                                            <use xlink:href="#card-wave" x="48" y="5" fill="rgba(255,255,255,0.25)">
+                                            </use>
+                                            <use xlink:href="#card-wave" x="48" y="8" fill="rgba(255,255,255,0.20)">
+                                            </use>
+                                            <use xlink:href="#card-wave" x="48" y="13" fill="rgba(255,255,255,0.15)">
+                                            </use>
+                                            <use xlink:href="#card-wave" x="48" y="16" fill="rgba(255,255,255,0.99)">
+                                            </use>
+                                        </g>
+                                    </svg>
                                 </div>
                             </div>
+                            <div class="card-body">
+                                <h4 class="text-gradient text-dark">Job Placement</h4>
+                                <p class="text-gradient text-dark">
+                                    In line with our values which prioritize recruitment and selection directly to jobs,
+                                    Donner is in active collaboration with the Real Estate Developers Association of
+                                    Nigeria and other major mass employers of semi-skilled labour.
+                                </p>
+                                <RouterLink to="/projects" class="text-primary icon-move-right">Learn More
+                                    <i class="fas fa-arrow-right text-xs ms-1" aria-hidden="true"></i>
+                                </RouterLink>
+                            </div>
+                        </div>
 
                     </div>
                 </div>
@@ -261,7 +291,8 @@
                                             <div class="p-3 text-start border-radius-lg">
                                                 <p class="text-justify text-gradient text-dark">
                                                     Awarding and Supporting Artisans in their various trades in a bid to
-                                                    encourage more youths to acquire vocational skills and grow the Nigerian
+                                                    encourage more youths to acquire vocational skills and grow the
+                                                    Nigerian
                                                     construction industry.
                                                     The Construction Artisans Awards (CAA) was conceived as part of a
                                                     holistic strategy to generate excitement and interest in the
@@ -273,8 +304,8 @@
                                 </div>
                                 <div class="col-md-1"></div>
                             </div>
-                            <img class="w-10 end-10 position-absolute mt-n6" src="/img/illustrations/pattern-points.webp"
-                                alt="image">
+                            <img class="w-10 end-10 position-absolute mt-n6"
+                                src="/img/illustrations/pattern-points.webp" alt="image">
                         </div>
                     </div>
                 </div>
@@ -320,10 +351,12 @@
                 <div class="row">
                     <div class="col-lg-7 col-md-7 m-auto text-start">
                         <h5 class="text-white mb-lg-0 mb-5 text-justify">
-                            We're on a mission to transform lives through quality TVET education. Your support can make a
+                            We're on a mission to transform lives through quality TVET education. Your support can make
+                            a
                             real impact. Join us in empowering individuals, building sustainable careers, and driving
                             positive change in communities. Your donation, no matter the size, is an investment in a
-                            brighter future. Together, we can create opportunities and unlock potential. Thank you for being
+                            brighter future. Together, we can create opportunities and unlock potential. Thank you for
+                            being
                             a part of our journey.
                         </h5>
                     </div>
@@ -336,7 +369,8 @@
                             </div>
                             <div class="col-sm-4 col-6 ps-sm-0 me-lg-0 me-auto">
                                 <RouterLink to="/contact"
-                                    class="btn btn-white mb-0 ms-lg-3 ms-sm-2 mb-sm-0 mb-2 me-auto w-100 d-block">Contact Us
+                                    class="btn btn-white mb-0 ms-lg-3 ms-sm-2 mb-sm-0 mb-2 me-auto w-100 d-block">
+                                    Contact Us
                                 </RouterLink>
                             </div>
                         </div>
