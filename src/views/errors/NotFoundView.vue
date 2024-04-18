@@ -9,7 +9,7 @@
                         <h3>Error 404</h3>
                         <p class="text-lg">We suggest you to go to the homepage while we solve this issue.</p>
                         <a href="https://donner.africa" class="btn bg-gradient-primary mt-4 me-3">Go to Homepage</a>
-                        <a href="/login" class="btn bg-white text-primary mt-4">Start A Raiser</a>
+                        <a href="/" class="btn bg-white text-primary mt-4">Start A Donner</a>
                     </div>
                     <div class="col-sm-5 my-auto position-relative">
                         <img class="w-100 position-relative"

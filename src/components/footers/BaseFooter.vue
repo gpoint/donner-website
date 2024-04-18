@@ -3,7 +3,7 @@
     <footer class="footer py-7 position-relative bg-gradient-primary overflow-hidden">
         <img src="/img/shapes/waves-white.svg" alt="pattern-lines" class="position-absolute start-0 top-0 w-100 opacity-4">
         <div class="container position-relative mt-5">
-            <div class="row ">
+            <div class="row d-none">
                 <div class="col-lg-4 col-md-4 col-12 mb-5 ps-4">
                     <h6 class="text-white text-sm">Reach Us</h6>
                     <div class="d-flex text-white">
@@ -15,13 +15,13 @@
                         </div>
                     </div>
                     <div class="d-flex py-2 text-white">
-                        <div>
+                        <!-- <div>
                             <i class="fas fa-map-marker-alt text-sm"></i>
-                        </div>
-                        <div class="ps-3 pe-5">
+                        </div> -->
+                        <!-- <div class="ps-3 pe-5">
                             <span class="text-sm opacity-8">Elijah House, 3 Abbey Street, after NYSC Bus Stop, Along Kubwa
                                 Express Way. Bwari District, Abuja, Nigeria.</span>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
                 <div class="col-lg-2 col-md-3 col-6 mb-5 ps-4">
@@ -33,11 +33,11 @@
                             </RouterLink>
                         </li>
 
-                        <li class="nav-item">
+                        <!-- <li class="nav-item">
                             <RouterLink class="nav-link text-white opacity-8" to="/projects">
-                                Projects
+                                Causes
                             </RouterLink>
-                        </li>
+                        </li> -->
                         <li class="nav-item">
                             <RouterLink class="nav-link text-white opacity-8" to="/about">
                                 About Us
@@ -45,8 +45,8 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link text-white opacity-8" href="https://cstempedutech.com">
-                                L
+                            <a class="nav-link text-white opacity-8" href="https://learn.donner.africa">
+                                Learning
                             </a>
                         </li>
                     </ul>
@@ -64,7 +64,7 @@
                                 Contact Us
                             </RouterLink>
                         </li>
-                        <li class="nav-item">
+                        <!-- <li class="nav-item">
                             <RouterLink class="nav-link text-white opacity-8" to="/careers">
                                 Work With Us
                             </RouterLink>
@@ -73,7 +73,7 @@
                             <RouterLink class="nav-link text-white opacity-8" to="/training">
                                 Request Training
                             </RouterLink>
-                        </li>
+                        </li> -->
                     </ul>
                 </div>
                 <!-- <div class="col-lg-3 col-md-2 col-4">
@@ -135,11 +135,11 @@
                 </div>
                 <div class="col-md-4  ms-auto text-end">
                     <div class="d-flex justify-content-end">
-                        <a href="https://www.facebook.com/cstempng/" target="_blank"><i
-                                class="fab fa-facebook text-lg text-white me-4"></i></a>
-                        <!-- <a href="javascript:;"><i class="fab fa-instagram text-lg text-white me-4"></i></a> -->
-                        <!-- <a href="javascript:;"><i class="fab fa-twitter text-lg text-white me-4"></i></a> -->
-                        <a href="https://www.linkedin.com/company/c-stemp" target="_blank"><i
+                        <!-- <a href="https://www.facebook.com/cstempng/" target="_blank"><i
+                                class="fab fa-facebook text-lg text-white me-4"></i></a> -->
+                        <a href="https://www.instagram.com/donner.africa"><i class="fab fa-instagram text-lg text-white me-4"></i></a>
+                        <a href="https://twitter.com/DonnerAfrica"><i class="fab fa-twitter text-lg text-white me-4"></i></a>
+                        <a href="https://www.linkedin.com/company/donner-africa" target="_blank"><i
                                 class="fab fa-linkedin text-lg text-white"></i></a>
                     </div>
                 </div>

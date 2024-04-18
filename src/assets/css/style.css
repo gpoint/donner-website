@@ -76,8 +76,8 @@
     hsla(0, 0%, 100%, 0)
   );
   --bs-body-font-family: var(--bs-font-sans-serif);
-  --bs-body-font-size: 0.75rem;
-  --bs-body-font-weight: 400;
+  --bs-body-font-size: 0.95rem;
+  --bs-body-font-weight: 500;
   --bs-body-line-height: 1.5;
   --bs-body-color: #67748e;
   --bs-body-bg: #fff;
