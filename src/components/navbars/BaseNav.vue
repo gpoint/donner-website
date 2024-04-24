@@ -1,9 +1,9 @@
 <template>
 <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-white z-index-3 py-3">
     <div class="container">
-        <RouterLink to="/" class="navbar-brand" href="/" rel="tooltip" data-placement="bottom">
+        <a href="/" class="navbar-brand" rel="tooltip" data-placement="bottom">
             <img height="40" src="/img/logo.png" alt="C-STEMP">
-        </RouterLink>
+        </a>
         <button class="navbar-toggler shadow-none ms-2" :class="collapsed" @click="collapse" type="button" data-bs-toggle="collapse" data-bs-target="#navigation" aria-controls="navigation" :aria-expanded="!menuCollapsed" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon mt-2">
                 <span class="navbar-toggler-bar bar1 bg-primary"></span>

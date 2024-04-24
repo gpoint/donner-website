@@ -21,11 +21,14 @@
                                 Start a Donner or donate today—because together, we create and give brighter futures.
                             </p>
                             <br />
-                            <!-- <div class="buttons">
-                                <a href="#impact" class="btn btn-lg btn-primary text-white">Learn More</a>
-                                <a to="https://app.donner.africa" class="btn btn-lg btn-white text-primary mx-4">Start a
-                                    Donner</a>
-                            </div> -->
+                             <div class="buttons">
+                                <RouterLink to="/page/how-does-it-work" class="btn btn-lg btn-primary text-white">
+                                    Learn More
+                                </RouterLink>
+                                <RouterLink to="/raisers/create" class="btn btn-lg btn-white text-primary mx-4">
+                                    Create a Donner
+                                </RouterLink>
+                            </div> 
                         </div>
                     </div>
                 </div>
@@ -72,12 +75,12 @@
                                     <img class="w-100 border-radius-lg border-top-start-radius-0 border-bottom-start-radius-0 start-0 position-absolute max-width-300 mt-n11 d-xl-block d-none"
                                         style="object-fit: cover; height: 150%" src="https://media.gettyimages.com/id/135538155/photo/volunteers-planting-a-tree-together.jpg?s=612x612&w=0&k=20&c=G6xGsxPax-8G1AxeNgdDnTIFNLI5VUfyNO0tjNTstLg=" alt="">
                                 </div>
-                                <div class="col-xl-9">
+                                <div class="col-xl-9 ps-4">
                                     <div class="row">
                                         <div class="col-xl-3 col-md-4 py-md-5 py-3">
                                             <div class="p-3 text-start border-radius-lg">
                                                 
-                                                <h5 class="mt-3">Start a <span class="text-primary">Donner</span></h5>
+                                                <h5 class="mt-3">Create a <span class="text-primary">Donner</span> Raiser</h5>
                                                 <p class="text-justify">
                                                     Decide how much you need to raise and share your story with the world in three simple steps.
                                                 </p>
@@ -132,7 +135,7 @@
                                 Local Focus, Global Impact:
                             </legend>
                             <p class="text-dark text-gradient text-justify">
-                                At Donner, we understands the unique challenges and opportunities within our communities. We provide a tailored platform designed with African communities in mind—making fundraising accessible, efficient, and impactful.
+                                At Donner, we understands the unique challenges and opportunities for growth within our communities. We provide a tailored platform designed with African communities in mind—making fundraising accessible, efficient, and impactful.
                             </p>
 
                             <legend class="text-gradient bg-gradient-dark lead">
@@ -211,14 +214,14 @@
                     <div class="col-md-5 m-auto">
                         <div class="row">
                             <div class="col-sm-5 col-6 ps-sm-0 ms-auto">
-                                <RouterLink to="/"
+                                <RouterLink to="/donner"
                                     class="btn bg-gradient-primary mb-0 ms-lg-3 ms-sm-2 mb-sm-0 mb-2 me-auto w-100 d-block">
                                     Donate</RouterLink>
                             </div>
                             <div class="col-sm-5 col-6 ps-sm-0 me-lg-0 me-auto">
-                                <RouterLink to="/contact"
+                                <RouterLink to="/donner/create"
                                     class="btn btn-white text-primary mb-0 ms-lg-3 ms-sm-2 mb-sm-0 mb-2 me-auto w-100 d-block">
-                                    start a Donner
+                                    Create a Donner
                                 </RouterLink>
                             </div>
                         </div>

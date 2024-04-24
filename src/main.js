@@ -10,7 +10,7 @@ import App from "./App.vue";
 import router from "./router";
 
 import VueProgressBar from "@aacassandra/vue3-progressbar";
-import Flutterwave from "flutterwave-vue3";
+//import Flutterwave from "flutterwave-vue3";
 // import './registerServiceWorker'
 
 const pinia = createPinia();
@@ -34,8 +34,8 @@ const progressBarOptions = {
 };
 
 app.use(VueProgressBar, progressBarOptions);
-app.use(Flutterwave, {
-  publicKey: "FLWPUBK-fb2240ea08f298ec1c26ad90124fc401-X",
-});
+//app.use(Flutterwave, {
+//  publicKey: "FLWPUBK-fb2240ea08f298ec1c26ad90124fc401-X",
+//});
 
 app.mount("#app");
