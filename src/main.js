@@ -10,6 +10,7 @@ import App from "./App.vue";
 import router from "./router";
 
 import VueProgressBar from "@aacassandra/vue3-progressbar";
+
 //import Flutterwave from "flutterwave-vue3";
 // import './registerServiceWorker'
 
@@ -26,11 +27,11 @@ const progressBarOptions = {
   transition: {
     speed: "0.2s",
     opacity: "1",
-    termination: 300,
+    termination: 300
   },
   autoRevert: true,
   location: "top",
-  inverse: false,
+  inverse: false
 };
 
 app.use(VueProgressBar, progressBarOptions);

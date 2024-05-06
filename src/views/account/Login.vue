@@ -10,13 +10,13 @@
                             <div class="card blur rounded-0 min-vh-80">
                                 <div class="card-body px-lg-5 py-lg-5 text-start">
                                     <div class="success mb-4">
-                                        <div class="icon icon-shape icon-xl rounded-circle bg-white shadow text-center p-3 mx-auto">
+                                        <a href="/" class="icon icon-shape icon-xl rounded-circle bg-white shadow text-center p-3 mx-auto">
                                             <img src='/img/icon.png' class="w-90 h-90 mt-1">
-                                        </div>
+                                        </a>
                                     </div>
                                     <h2>Welcome back</h2>
                                     <p class="mb-4">Sign in to manage fundraisers.</p>
-                                    <form class="form-section">
+                                    <form class="form-section active">
                                         <div class="px-md-4 ps-2 pe-4 row">
                                             <div class="form-group mt-3">
                                                 <label class="text-gradient text-dark text-sm">
@@ -51,9 +51,9 @@
                                                         Sign Up
                                                     </RouterLink>
                                                 </span>
-                                                <button class="btn btn-primary float-end" type="submit">
+                                                <BaseButton class="btn btn-primary float-end" type="submit">
                                                     Login
-                                                </button>
+                                                </BaseButton>
                                             </div>
                                             <RouterLink to="/account/password-reset" class="w-100 mb-4 text-bold text-primary">
                                                 Don't remember your password?
@@ -72,11 +72,29 @@
 </template>
 
 <script>
+    import BaseButton from "@/components/forms/BaseButton.vue"
+
+    import { getNavigationStore } from "@/stores/navigation";
 
     export default {
+        components: {
+            BaseButton
+        },
         data() {
             return {};
         },
+        beforeMount() {
+            const navigationStore = getNavigationStore();
 
+            console.log(navigationStore);
+            navigationStore.$state.showNavigationBar = false;
+            navigationStore.$state.showFooter = false;
+        },
+        beforeUnmount() {
+            const navigationStore = getNavigationStore();
+
+            navigationStore.$state.showNavigationBar = true;
+            navigationStore.$state.showFooter = true;
+        }
     }
 </script>

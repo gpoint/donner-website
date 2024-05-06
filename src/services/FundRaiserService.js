@@ -1,24 +1,45 @@
-import axios from "axios";
-import config from "./config";
+import { getNewFundRaiserStore } from "@/stores/new-fund-raiser";
 
-class ProjectService {
-  async getProjectList() {
-    let response;
+const newFundRaiserStore = getNewFundRaiserStore();
 
-    try {
-      response = await axios.get(
-        config.BASE_URL + `project_list.json`
-      );
-    } catch (error) {
-      throw new Error(
-        error.response ? error.response.data.message : error.message
-      );
+const getters = {
+
+    createFundRaiserCurrentStep: () => window.localStorage.getItem('createFundRaiserCurrentStep'),
+
+    newFundRaiser: () => {
+        
+        return newFundRaiserStore.$state.newFundRaiser;
     }
+};
 
-    const { data } = response;
+const setters = {
 
-    return data;
-  }
-}
+    createFundRaiserCurrentStep: (value) => window.localStorage.setItem('createFundRaiserCurrentStep', value),
+    
+    newFundRaiser: async (value) => {
+        
+        newFundRaiserStore.commit(value);
+        
+        //async setters.
+    }
+};
 
-export default new ProjectService();
+export default {
+
+    async get(name) {
+        try {
+            return getters[name]();
+        } catch (e) {
+            return undefined;
+        }
+    },
+
+    async set(name, value) {
+        try {
+            setters[name](value);
+        } catch (e) {
+            console.log(e);
+            throw new Error(`Unable to set ${name}`);
+        }
+    }
+};

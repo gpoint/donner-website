@@ -8,12 +8,12 @@ const router = createRouter({
                 {
                     path: "/",
                     name: "home",
-                    component: () => import("../views/Index.vue"),
+                    component: () => import("../views/Index.vue")
                 },
                 {
                     path: "/raisers/create",
                     name: "Create a Donner Fundraiser",
-                    component: () => import("../views/raisers/Create.vue"),
+                    component: () => import("../views/raisers/Create.vue")
                 },
                 ...AccountRoutes,
                 // {

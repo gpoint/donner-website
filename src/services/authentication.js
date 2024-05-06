@@ -11,16 +11,16 @@ var API_URL = config.API_URL;
 
 class AuthService {
   validateLoggedIn() {
-    if (localStorage.getItem("auth") == null) {
+    if (localStorage.getItem("auth") === null) {
       return;
     }
-    if (authHeader().Authorization == undefined) {
+    if (authHeader().Authorization === undefined) {
       localStorage.removeItem("auth");
       window.location = window.location.href;
     }
     axios
       .get(API_URL + "user", {
-        headers: authHeader(),
+        headers: authHeader()
       })
       .then((response) => {
         if (response.data.isError) {
@@ -45,7 +45,7 @@ class AuthService {
       response = await axios.post(API_URL + "account/login?role=USER", {
         email: payload.email,
         password: payload.password,
-        remember: payload.remember,
+        remember: payload.remember
       });
     } catch (error) {
       throw new Error(
@@ -61,7 +61,7 @@ class AuthService {
 
     userStore.$patch({
       ...user,
-      authorization: accessToken,
+      authorization: accessToken
     });
 
     localStorage.setItem("user", JSON.stringify(user));
@@ -69,7 +69,7 @@ class AuthService {
     cookieUtils.bakeCookie({
       name: "authorization",
       value: accessToken,
-      maxAge: payload.remember ? 60 * 60 * 24 * 183 : null,
+      maxAge: payload.remember ? 60 * 60 * 24 * 183 : null
     });
 
     return user;
@@ -77,30 +77,48 @@ class AuthService {
 
   async register(payload) {
     let response;
+    
+    // Unbox the payload parameter to form a serializable payload
+    const {
+        firstName,
+        lastName,
+        email,
+        countryCode,
+        phone,
+        password,
+        receiveUpdates
+    } = payload;
 
     try {
-      response = await axios.post(API_URL + "account/registration?role=USER", {
-        firstName: payload.firstName,
-        lastName: payload.lastName,
-        email: payload.email,
-        password: payload.password,
-        confirmPassword: payload.confirmPassword,
+        
+      response = await axios.post(API_URL + "account/sign-up", {
+        firstName,
+        lastName,
+        email,
+        countryCode,
+        phone,
+        password,
+        receiveUpdates
       });
+      
     } catch (error) {
+        
       throw new Error(
         error.response ? error.response.data.message : error.message
       );
+      
     }
 
     const { data } = response;
 
-    const { user, accessToken } = data;
+    // Store user and authorization objects
 
+    const { user, accessToken } = data;
     const userStore = useUserStore();
 
     userStore.$patch({
       ...user,
-      authorization: accessToken,
+      authorization: accessToken
     });
 
     localStorage.setItem("user", JSON.stringify(user));
@@ -108,7 +126,7 @@ class AuthService {
     cookieUtils.bakeCookie({
       name: "authorization",
       value: accessToken,
-      maxAge: 60 * 60 * 24 * 183,
+      maxAge: 60 * 60 * 24 * 183
     });
 
     return user;
@@ -119,7 +137,7 @@ class AuthService {
 
     try {
       response = await axios.post(API_URL + "account/password-reset", {
-        email: payload.email,
+        email: payload.email
       });
     } catch (error) {
       throw new Error(
@@ -156,7 +174,7 @@ class AuthService {
     try {
       response = await axios.put(
         API_URL + `account/password-reset?token=${token}`, {
-          password: payload.password,
+          password: payload.password
         }
       );
     } catch (error) {

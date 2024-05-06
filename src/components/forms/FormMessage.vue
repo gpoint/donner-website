@@ -1,28 +1,34 @@
 <template>
-<div>
-    <div readonly class="mb-3 text-light btn-block p-2" :class="'alert-' + type" :style=" style " v-if="message != '' && message != null" @click="update" style="font-size: 0.775rem;border-radius:5px;">
-        <strong class="float-end my-1 text-center bg-white" :class="`text-${type}`" style="height:17px;width:17px;font-size:17px;line-height:15px;border-radius:100%;">
-            &times;
-        </strong>
-        <span class="text-white" v-html="message"></span>
+    <div>
+        <div readonly class="mb-3 text-light btn-block p-2" :class="'alert-' + type" :style="style"
+            v-if="html != '' && html != null" @click="update" style="font-size: 0.775rem;border-radius:5px;">
+            <strong class="float-end my-1 text-center bg-white" :class="`text-${type}`" v-if="closeable"
+                style="height:17px;width:17px;font-size:17px;line-height:15px;border-radius:100%;">
+                &times;
+            </strong>
+            <span class="text-white" v-html="html"></span>
+        </div>
     </div>
-</div>
 </template>
 
 <script>
 export default {
     name: "form-message",
     props: {
-        message: {
+        html: {
             type: String,
-            default: "",
+            default: ""
         },
         type: {
             type: String,
-            default: "info",
+            default: "danger"
         },
+        closeable: {
+            type: Boolean,
+            default: true
+        }
     },
-    emits: ['update:message'],
+    emits: ['update:html', 'update:type'],
     computed: {
         style() {
             switch (this.type) {
@@ -69,8 +75,11 @@ export default {
     },
     methods: {
         update() {
-            this.$emit('update:message', '');
+            if(this.closeable) {
+                this.$emit('update:html', '');
+                this.$emit('update:type', '');
+            }
         }
-    },
+    }
 }
 </script>

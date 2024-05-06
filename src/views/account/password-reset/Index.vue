@@ -16,7 +16,7 @@
                                     </div>
                                     <h2>Reset your password</h2>
                                     <p class="mb-4">Secure your account with a new password.</p>
-                                    <form class="form-section">
+                                    <form class="form-section active">
                                         <div class="px-md-4 ps-2 pe-4 row">
                                             <div class="form-group mt-3 col-12">
                                                 <label class="text-gradient text-dark text-sm">

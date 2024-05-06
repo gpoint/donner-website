@@ -1,9 +1,3 @@
-/* 
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/javascript.js to edit this template
- */
-
-
 const configurations = {
     categories: [
         {
@@ -161,7 +155,7 @@ const configurations = {
 };
 
 export default {
-    get(name) {
+    async get(name) {
         return configurations[name];
     }
 };

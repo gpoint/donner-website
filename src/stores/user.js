@@ -6,21 +6,21 @@ const stringifiedUser = localStorage.getItem("user");
 
 const user = !!stringifiedUser ? JSON.parse(stringifiedUser) : {};
 
-export const useUserStore = defineStore("user", {
+export const getUserStore = defineStore("user", {
   state: () => ({
     ...user,
-    authorization: cookieUtils.seeCookie("authorization"),
+    authorization: cookieUtils.seeCookie("authorization")
   }),
   getters: {
     isLoggedIn: (state) => {
       return !!state.authorization;
-    },
+    }
   },
   actions: {
     logout() {
       this.authorization = null;
       localStorage.removeItem("user");
       cookieUtils.eatCookie("authorization");
-    },
+    }
   },
 });

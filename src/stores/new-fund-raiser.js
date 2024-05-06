@@ -1,26 +1,30 @@
 import { defineStore } from "pinia";
 
-import cookieUtils from "../utils/cookie.utils";
+const initialCountry = 'Nigeria'; // TODO determine initial countrty from Geo and IP data
 
-const stringifiedUser = localStorage.getItem("user");
+const stringifiedNewFundRaiser = localStorage.getItem("newFundRaiser");
 
-const user = !!stringifiedUser ? JSON.parse(stringifiedUser) : {};
+const newFundRaiser = !!stringifiedNewFundRaiser ? {...JSON.parse(stringifiedNewFundRaiser)} : {
+    category: '',
+    subCategory: '',
+    title: '',
+    story: '',
+    country: initialCountry,
+    goal: '',
+    target: '',
+    sdgs: []
+};
 
-export const useUserStore = defineStore("user", {
-  state: () => ({
-    ...user,
-    authorization: cookieUtils.seeCookie("authorization"),
-  }),
-  getters: {
-    isLoggedIn: (state) => {
-      return !!state.authorization;
-    },
-  },
-  actions: {
-    logout() {
-      this.authorization = null;
-      localStorage.removeItem("user");
-      cookieUtils.eatCookie("authorization");
-    },
-  },
+export const getNewFundRaiserStore = defineStore("newFundRaiser", {
+    state: () => ({
+            newFundRaiser
+        }),
+    actions: {
+        commit (value) {
+
+            this.newFundRaiser = value;
+
+            localStorage.setItem("newFundRaiser", JSON.stringify(this.newFundRaiser));
+        }
+    }
 });

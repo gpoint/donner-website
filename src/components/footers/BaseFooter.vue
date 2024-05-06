@@ -1,6 +1,6 @@
 <template>
     <!-- ---- START FOOTER 2 dark w/ bg image 5 cols & subscribe area & social---- -->
-    <footer class="footer py-7 position-relative bg-gradient-primary overflow-hidden">
+    <footer class="footer py-7 position-relative bg-gradient-primary overflow-hidden" :class="display">
         <img src="/img/shapes/waves-white.svg" alt="pattern-lines" class="position-absolute start-0 top-0 w-100 opacity-4">
         <div class="container position-relative mt-5">
             <div class="row d-none">
@@ -28,9 +28,9 @@
                     <h6 class="text-white text-sm">Organization</h6>
                     <ul class="flex-column ms-n3 nav">
                         <li class="nav-item">
-                            <RouterLink class="nav-link text-white opacity-8" to="/donate">
-                                Donate
-                            </RouterLink>
+                        <RouterLink class="nav-link text-white opacity-8" to="/donate">
+                            Donate
+                        </RouterLink>
                         </li>
 
                         <!-- <li class="nav-item">
@@ -39,9 +39,9 @@
                             </RouterLink>
                         </li> -->
                         <li class="nav-item">
-                            <RouterLink class="nav-link text-white opacity-8" to="/about">
-                                About Us
-                            </RouterLink>
+                        <RouterLink class="nav-link text-white opacity-8" to="/about">
+                            About Us
+                        </RouterLink>
                         </li>
 
                         <li class="nav-item">
@@ -55,14 +55,14 @@
                     <h6 class="text-white text-sm">Support</h6>
                     <ul class="flex-column ms-n3 nav">
                         <li class="nav-item">
-                            <RouterLink class="nav-link text-white opacity-8" to="/faqs">
-                                FAQs
-                            </RouterLink>
+                        <RouterLink class="nav-link text-white opacity-8" to="/faqs">
+                            FAQs
+                        </RouterLink>
                         </li>
                         <li class="nav-item">
-                            <RouterLink class="nav-link text-white opacity-8" to="/contact">
-                                Contact Us
-                            </RouterLink>
+                        <RouterLink class="nav-link text-white opacity-8" to="/contact">
+                            Contact Us
+                        </RouterLink>
                         </li>
                         <!-- <li class="nav-item">
                             <RouterLink class="nav-link text-white opacity-8" to="/careers">
@@ -150,26 +150,33 @@
 </template>
 
 <script>
-const attachTranslator = () => {
+    
+    import { getNavigationStore } from "@/stores/navigation";
+    
+    const attachTranslator = () => {
 
-    try {
+        try {
 
-        const googleTranslateDiv = document.getElementById(":0.targetLanguage");
+            const googleTranslateDiv = document.getElementById(":0.targetLanguage");
+            const translateSelect = googleTranslateDiv.children[0];
+            translateSelect.classList.add("form-control");
+            document.getElementById("footerLanguageDiv").appendChild(translateSelect);
+        } catch (error) {
+            setTimeout(attachTranslator, 1000);
+        }
+    };
+    
+    export default {
+        computed: {
+            display(){
+                const navigationStore = getNavigationStore();
+                
+                return navigationStore.$state.showFooter ? "d-block" : "d-none";
+            }
+        },
+        mounted() {
+            attachTranslator();
+        }
 
-        const translateSelect = googleTranslateDiv.children[0];
-
-        translateSelect.classList.add("form-control");
-
-        document.getElementById("footerLanguageDiv").appendChild(translateSelect);
-
-    } catch (error) {
-        setTimeout(attachTranslator, 1000);
     }
-}
-export default {
-    mounted() {
-        attachTranslator();
-    }
-
-}
 </script>
