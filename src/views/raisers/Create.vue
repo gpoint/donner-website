@@ -1,7 +1,10 @@
 <template>
     <div>
         <header>
-            <div class="page-header min-vh-85">
+            <a href="/" class="position-fixed top-0 start-0" style="z-index: 200">
+                <img src="/favicon.ico" class=" bg-white border-radius-lg p-1 m-2" style="height: 50px;">
+            </a>
+            <div class="page-header min-vh-100" style="align-items: start;">
                 <div class="position-fixed fixed-top ms-auto w-50 h-100 z-index-0 d-none d-sm-none d-md-block border-top-end-radius-0 border-top-start-radius-0 border-bottom-end-radius-0"
                      style="background-image: url('/img/backgrounds/join-organization.jpg'); background-size:cover;">
                 </div>
@@ -9,16 +12,13 @@
                      style="background-size:cover;background-position: bottom left;">
                     <div class="position-absolute fixed-top me-auto w-100 h-100 z-index-0 d-md-block border-top-end-radius-0 border-top-start-radius-0 border-bottom-end-radius-0"
                          style="background-size:cover; background-image: url('/img/shapes/waves-white.svg');background-position: bottom left;"></div>
-                    <a href="/" class="position-absolute top-0 start-0">
-                        <img src="/favicon.ico" class=" bg-white border-radius-lg p-1 m-2" style="height: 50px;">
-                    </a>
                 </div>
-                <div class="container my-5 p-0 ">
+                <div class="container my-0 my-sm-5 p-0 ">
                     <div class="row">
                         <div class="col-lg-8 d-flex justify-content-center flex-column my-0 my-sm-5">
-                            <div class="card card-body blur d-flex justify-content-top px-sm-5 shadow-lg mt-md-5 mt-4 py-5 min-vh-75 rounded-0">
+                            <div class="card card-body blur d-flex justify-content-top px-sm-5 shadow-lg mt-md-5 mt-sm-4 mt-0 py-5 min-vh-75 rounded-0">
 
-                                <h1 class="text-gradient text-dark mb-0">{{ isLoggedIn ? `Hi, ${user.name}` : 'Start a successful fundraiser' }} </h1>
+                                <h1 class="text-gradient text-dark mb-0 mt-10 mt-sm-0">{{ isLoggedIn ? `Hi, ${user.name}` : 'Start a successful fundraiser' }} </h1>
                                 <h5 class="mb-2 text-gradient text-dark">We are going to make impact together. <span class="text-primary text-gradient">🍀</span></h5>
                                 <hr class="btn-round bg-gradient-success my-5 opacity-8" style="height: 5px; border-radius: 20px; transition: width 1s" :style="{width: `${(currentStep/7) * 100}%`}">
                                 <div class="col-12" style="height: 45px">
@@ -64,7 +64,7 @@
                                                 <label class="text-gradient text-dark text-sm">
                                                     Is your fundraiser aimed at any Sustainable Development Goals?
                                                 </label>
-                                                <SDGSelect v-model:value="newFundRaiser.sdgs"></SDGSelect>
+                                                <SDGSelect :value="newFundRaiser.sdgs"></SDGSelect>
                                             </div>
                                             <div class="form-group">
                                                 <BaseButton class="btn btn-primary float-end mt-3" nativeType="submit">
@@ -103,8 +103,8 @@
                                                 <label class="text-gradient text-dark text-sm">
                                                     Share your story
                                                 </label>
-                                                <div class="form-control me-2 p-0 bg-white" style="height: 200px; overflow-y: scroll;"> 
-                                                    <QuillEditor theme="snow" contentType="html" v-model:content="newFundRaiser.story" />
+                                                <div class="form-control me-2 p-0 bg-white" style="height: 200px; overflow: visible scroll; z-index: 30;"> 
+                                                    <QuillEditor theme="bubble" contentType="html" v-model:content="newFundRaiser.story" />
                                                 </div>
                                             </div>
                                             <BaseButton class="float-end mt-4" nativeType="submit">
@@ -180,8 +180,8 @@
 <script>
     /* packages */
     import { QuillEditor } from '@vueup/vue-quill'
-    import '@vueup/vue-quill/dist/vue-quill.snow.css';
-
+    import '@vueup/vue-quill/dist/vue-quill.bubble.css';
+    
     /* components */
     import ChipContainer from '@/components/forms/ChipContainer.vue';
     import SDGSelect from '@/components/forms/SDGSelect.vue';
@@ -210,9 +210,9 @@
             };
         },
         async beforeMount() {
-
+            
             this.newFundRaiser = await FundRaiserService.get("newFundRaiser");
-
+            
             this.categories = await ConfigurationService.get('categories');
 
             this.currentStep = await FundRaiserService.get('createFundRaiserCurrentStep') || 1;
@@ -295,7 +295,13 @@
     }
 </script>
 <style>
-
+    div.ql-container.ql-bubble{
+        overflow: visible scroll;
+        position: fixed;
+        width: 100%;
+        height: 195px;
+    }
+    
     .form-section {
         opacity: 0;
         min-height: 0;

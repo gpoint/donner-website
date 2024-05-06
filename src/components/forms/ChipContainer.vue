@@ -21,12 +21,19 @@
             options: {
                 type: Array,
                 required: true
+            },
+            selected: {
+                type: String,
+                required: false
             }
         },
         data() {
             return {
                 selectedOption: null
             };
+        },
+        updated() {
+            this.selectedOption = this.options.indexOf(this.selected);
         },
         computed: {
         },

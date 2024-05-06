@@ -24,6 +24,11 @@
 
 <script>
 export default {
+    props: {
+        value: {
+            type: Array
+        }
+    },
     emits: ['update:value'],
     data() {
         return {
@@ -65,9 +70,12 @@ export default {
                 14: '1f97d4', // Life Below Water
                 15: '59ba48', // Life on Land
                 16: '126a9f', // Peace, Justice, and Strong Institutions
-                17: '13496b', // Partnerships for the Goals
-            },
+                17: '13496b' // Partnerships for the Goals
+            }
         };
+    },
+    updated() {
+        this.tags = this.value;
     },
     computed: {
         filteredSDGs() {
@@ -81,7 +89,7 @@ export default {
                 }))
                 .filter(goal => !this.tags.some(tag => tag === goal.index));
 
-        },
+        }
     },
     methods: {
         addTag() {
@@ -92,8 +100,8 @@ export default {
         },
         removeTag(index) {
             this.tags.splice(index, 1);
-        },
-    },
+        }
+    }
 };
 </script>
 
