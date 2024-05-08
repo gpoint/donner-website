@@ -33,7 +33,7 @@ class AuthService {
         }
       })
       .catch(() => {
-        localStorage.removeItem("auth");
+//        localStorage.removeItem("auth");
         // window.location = `${BASE_ENV_URL}/login`;
       });
   }

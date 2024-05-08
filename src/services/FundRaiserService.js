@@ -4,23 +4,32 @@ const newFundRaiserStore = getNewFundRaiserStore();
 
 const getters = {
 
-    createFundRaiserCurrentStep: () => window.localStorage.getItem('createFundRaiserCurrentStep'),
+    createFundRaiserCurrentStep: () => { 
+        return window.localStorage.getItem('createFundRaiserCurrentStep');
+    },
 
     newFundRaiser: () => {
-        
         return newFundRaiserStore.$state.newFundRaiser;
+    },
+    
+    newFundRaiserIsComplete: (value) => {
+        return JSON.parse(window.localStorage.getItem('newFundRaiserIsComplete') || 'false');
     }
+
 };
 
 const setters = {
 
-    createFundRaiserCurrentStep: (value) => window.localStorage.setItem('createFundRaiserCurrentStep', value),
+    createFundRaiserCurrentStep: (value) => {
+        window.localStorage.setItem('createFundRaiserCurrentStep', value);
+    },
     
+    newFundRaiserIsComplete: (value) => {
+        window.localStorage.setItem('newFundRaiserIsComplete', value);
+    },
+
     newFundRaiser: async (value) => {
-        
         newFundRaiserStore.commit(value);
-        
-        //async setters.
     }
 };
 
@@ -38,8 +47,19 @@ export default {
         try {
             setters[name](value);
         } catch (e) {
-            console.log(e);
             throw new Error(`Unable to set ${name}`);
+        }
+    },
+
+    async createFundRaiser() {
+        const newFundRaiserIsComplete = this.get("newFundRaiserIsComplete");
+        
+        try {
+            const response = await axios.post(API_URL + "account/login?role=USER", {
+                ...newFundRaiser
+            });
+        } catch (error) {
+            throw new Error(error.response ? error.response.data.message : error.message);
         }
     }
 };

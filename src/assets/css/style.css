@@ -28317,3 +28317,26 @@ svg.leaflet-image-layer.leaflet-interactive path {
   transition-delay: 0s;
   transform: scale(1);
 }
+
+
+
+
+.skeleton-loader:empty {
+  background: linear-gradient(	 
+      85deg,
+      rgba(240, 255, 245, 0),
+      rgba(240, 255, 245, 0.4) 50%,
+      rgba(240, 255, 245, 0.7) 80%,
+      rgba(240, 255, 245, 0.5) 90%
+    ), transparent;
+  background-repeat: repeat-y;
+  background-size: 200px auto;
+  background-position: 0 0;
+  height: auto;
+  animation: shine 3s infinite alternate;	 
+}
+@keyframes shine {	
+  to {
+    background-position: 100% 0, /* move highlight to right */ 0 0;
+  }
+}
