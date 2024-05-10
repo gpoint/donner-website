@@ -28323,17 +28323,22 @@ svg.leaflet-image-layer.leaflet-interactive path {
 
 .skeleton-loader:empty {
   background: linear-gradient(	 
-      85deg,
+      120deg,
       rgba(240, 255, 245, 0),
-      rgba(240, 255, 245, 0.4) 50%,
-      rgba(240, 255, 245, 0.7) 80%,
-      rgba(240, 255, 245, 0.5) 90%
+      rgba(240, 235, 245, 0.0) 5%,
+      rgba(240, 235, 245, 0.5) 25%,
+      rgba(240, 255, 245, 0.6) 40%,
+      rgba(240, 255, 245, 0.6) 50%,
+      rgba(240, 255, 245, 0.6) 60%,
+      rgba(240, 255, 245, 0.5) 75%,
+      rgba(240, 255, 245, 0) 95%,
+      rgba(240, 255, 245, 0) 100%
     ), transparent;
   background-repeat: repeat-y;
   background-size: 200px auto;
   background-position: 0 0;
   height: auto;
-  animation: shine 3s infinite alternate;	 
+  animation: shine 5s cubic-bezier(.68,-0.55,.27,1.55) infinite alternate;
 }
 @keyframes shine {	
   to {

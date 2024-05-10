@@ -6,7 +6,9 @@ const getters = {
     
     name: () => userStore.$state.name,
     
-    authorization: () => userStore.$state.authorization
+    authorization: () => userStore.$state.authorization,
+    
+    isLoggedIn: () => !!userStore.$state.authorization
 };
 
 const setters = {
@@ -19,11 +21,21 @@ const setters = {
 };
 
 export default {
-    async get(name) {
-        return getters[name]();
-    },
     
+    async get(name) {
+        try {
+            return getters[name]();
+        } catch (e) {
+            return undefined;
+        }
+    },
+
     async set(name, value) {
-        setters[name](value);
+        try {
+            setters[name](value);
+        } catch (e) {
+            throw new Error(`Unable to set ${name}`);
+        }
     }
+
 };

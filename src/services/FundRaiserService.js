@@ -1,17 +1,18 @@
 import { getNewFundRaiserStore } from "@/stores/new-fund-raiser";
+import API from "@/services/API"
 
-const newFundRaiserStore = getNewFundRaiserStore();
+        const newFundRaiserStore = getNewFundRaiserStore();
 
 const getters = {
 
-    createFundRaiserCurrentStep: () => { 
+    createFundRaiserCurrentStep: () => {
         return window.localStorage.getItem('createFundRaiserCurrentStep');
     },
 
     newFundRaiser: () => {
         return newFundRaiserStore.$state.newFundRaiser;
     },
-    
+
     newFundRaiserIsComplete: (value) => {
         return JSON.parse(window.localStorage.getItem('newFundRaiserIsComplete') || 'false');
     }
@@ -23,7 +24,7 @@ const setters = {
     createFundRaiserCurrentStep: (value) => {
         window.localStorage.setItem('createFundRaiserCurrentStep', value);
     },
-    
+
     newFundRaiserIsComplete: (value) => {
         window.localStorage.setItem('newFundRaiserIsComplete', value);
     },
@@ -52,14 +53,36 @@ export default {
     },
 
     async createFundRaiser() {
-        const newFundRaiserIsComplete = this.get("newFundRaiserIsComplete");
+        const newFundRaiserIsComplete = await this.get("newFundRaiserIsComplete");
         
+        if(!newFundRaiserIsComplete) {
+            
+            throw new Error("Your   fundraiser cannot be created because it is not complete");
+        }
+        
+        const newFundRaiser = await this.get("newFundRaiser");
+
         try {
-            const response = await axios.post(API_URL + "account/login?role=USER", {
-                ...newFundRaiser
+            const response = await API.post("fundraiser", {
+                data: {
+                    ...newFundRaiser
+                }
             });
+
+            return response;
         } catch (error) {
             throw new Error(error.response ? error.response.data.message : error.message);
         }
+    },
+
+    async generateTitlesForStory(story) {
+        const {data: titles} = await API.post("fundraiser/story", {
+            data: {
+                story
+            }
+        });
+
+        return titles;
+
     }
 };

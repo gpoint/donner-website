@@ -96,7 +96,7 @@
                                         </div>
                                     </div>
 
-                                    <form class="form-section" :class="{'active': currentStep == 5}" @submit.prevent="generateTitles(); next();">
+                                    <form class="form-section" :class="{'active': currentStep == 5}" @submit.prevent="next();">
                                         <h6 class="mb-2 mt-3">Let donors know what you are raising for, why it is important, and how their donations will make things better.</h6>
                                         <div class="px-md-3 px-sm-1">
                                             <div class="form-group mt-4">
@@ -104,7 +104,7 @@
                                                     Share your story
                                                 </label>
                                                 <div class="form-control me-2 p-0 bg-white" style="height: 200px; overflow: visible scroll; z-index: 30;"> 
-                                                    <QuillEditor theme="bubble" contentType="html" v-model:content="newFundRaiser.story" />
+                                                    <QuillEditor theme="bubble" contentType="html" v-model:content="newFundRaiser.story" placeholder="Hi, my name is Sina and I am fundraising for..." />
                                                 </div>
                                             </div>
                                             <BaseButton class="float-end mt-4" nativeType="submit">
@@ -114,38 +114,41 @@
                                     </form>
 
                                     <div class="form-section" :class="{'active': currentStep == 6}" @submit.prevent="$router.push('/accounts/signup')">
-                                        <h6 class="mb-2 mt-3">Pick an AI suggested title </h6>
+                                        <h6 class="mb-2 mt-3">
+                                            {{ newFundRaiser.titleMode === 'pick'  ? 'Pick an AI suggested title' : 'Give your fundraiser an amazing title' }}
+                                        </h6>
 
                                         <div class="px-md-4 ps-2 pe-4 row">
-                                            <div class="form-group mt-3">
-                                                <div class="input-group mx-2 mb-2" v-for="(generatedTitle) in generatedTitles" :key="generatedTitle">
+                                            <div class="form-group mt-3" v-if="newFundRaiser.titleMode === 'pick'">
+                                                <div class="input-group mx-2 mb-3" :class="{'bg-gradient-primary': !generatedTitle, ' border-primary bg-white': generatedTitle === newFundRaiser.title }" v-for="(generatedTitle) in generatedTitles" :key="generatedTitle" @click="newFundRaiser.title = generatedTitle">
                                                     <span v-if="generatedTitle" class="bg-transparent input-group-text px-3">
-                                                        <i class="fas fa-arrow-right" aria-hidden="true"> </i>
+                                                        <i class="fas fa-arrow-circle-right" :class="{'text-primary': generatedTitle === newFundRaiser.title}" aria-hidden="true"> </i>
                                                     </span>
-                                                    
-                                                    <input class="form-control form-control-lg text-lg text-dark text-bold text-gradient border-end-0" style="cursor: pointer" readonly="true" :value="generatedTitle" :class="{ 'skeleton-loader': !generatedTitle }" >
-                                                        
+
+                                                    <input class="form-control form-control-lg text-lg text-dark text-gradient text-bold border-end-0" style="cursor: pointer" readonly="true" :value="generatedTitle" :class="{ 'skeleton-loader': !generatedTitle }" >
+
                                                     <button v-if="generatedTitle" type="button" class="bg-transparent px-3 mb-0 border-start-0" style="border-radius: 0 .5rem .5rem 0; border: solid 1px #141727;">
-                                                        <span v-if="newFundRaiser.title == generatedTitle" class="badge bg-gradient-primary text-white text-bold" aria-hidden="true">
+                                                        <span v-if="newFundRaiser.title === generatedTitle" class="badge bg-gradient-primary text-white text-bold" aria-hidden="true">
                                                             <i class="fa fa-check"></i>
                                                         </span>
                                                     </button>
                                                 </div>
-                                                <label class="text-gradient text-dark text-sm mx-2 mt-2">
-                                                    Or write your own
-                                                </label>
-                                                <div class="input-group mx-2">
-                                                    <span class="input-group-text px-3"><i class="fas" aria-hidden="true">Title: </i></span>
-                                                    <input class="form-control form-control-lg text-lg text-dark text-bold border-end-0" required v-model="newFundRaiser.title" placeholder="" >
-                                                    <button type="button" class="bg-white px-3 mb-0 border-start-0" style="border-radius: 0 .5rem .5rem 0; border: solid 1px #141727;">
-                                                        <span v-if="false" class="badge bg-gradient-primary text-white text-bold" aria-hidden="true">
-                                                            <i class="fa fa-check"></i>
-                                                        </span>
-                                                    </button>
+                                                <a href="#" @click.prevent="newFundRaiser.titleMode = 'write'" class="text-gradient text-primary text-bold text-sm mx-2 mt-2">
+                                                    Come up with something better
+                                                </a>
+                                            </div>
+                                            <div class="form-group mt-3" v-if="newFundRaiser.titleMode === 'write'">
+                                                <div class="input-group mx-2 my-6 bg-white">
+
+                                                    <input class="form-control form-control-lg text-center text-lg text-dark text-gradient text-bold " v-model="newFundRaiser.title">
+
                                                 </div>
+                                                <a href="#" @click.prevent="generateTitles" class="text-gradient text-primary text-bold text-sm mx-2 mt-2">
+                                                    Pick an AI suggested title
+                                                </a>
                                             </div>
                                             <div class="form-group">
-                                                <BaseButton @click="$router.push('/account/sign-up')" class="btn btn-primary float-end mt-3" nativeType="submit">
+                                                <BaseButton :disabled="newFundRaiser.title ? undefined : true" @click="create" class="btn btn-primary float-end mt-3" nativeType="submit">
                                                     Create
                                                 </BaseButton>
                                             </div>
@@ -167,13 +170,13 @@
     /* packages */
     import { QuillEditor } from '@vueup/vue-quill'
     import '@vueup/vue-quill/dist/vue-quill.bubble.css';
-    
+
     /* components */
     import ChipContainer from '@/components/forms/ChipContainer.vue';
     import SDGSelect from '@/components/forms/SDGSelect.vue';
     import BaseButton from "@/components/forms/BaseButton.vue"
 
-    /* services */
+            /* services */
     import ConfigurationService from '@/services/ConfigurationService';
     import FundRaiserService from '@/services/FundRaiserService';
     import NavigationService from "@/services/NavigationService";
@@ -192,14 +195,14 @@
                 categories: [],
                 currentStep: 1,
                 isLoggedIn: false,
-                generatedTitles: ['','p','p'],
+                generatedTitles: ['', '', ''],
                 newFundRaiser: {}
             };
         },
         async beforeMount() {
-            
+
             this.newFundRaiser = await FundRaiserService.get("newFundRaiser");
-            
+
             this.categories = await ConfigurationService.get('categories');
 
             this.currentStep = await FundRaiserService.get('createFundRaiserCurrentStep') || 1;
@@ -251,7 +254,7 @@
                     this.newFundRaiser.target = '';
                     return;
                 }
- 
+
                 // Format the number with commas
                 const formattedAmount = amount.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
@@ -259,19 +262,44 @@
                 this.newFundRaiser.target = `${formattedAmount}`;
 
             },
-            
+
             async generateTitles() {
-                
-                this.genertedTitles = titles;
+
+                this.newFundRaiser.titleMode = "pick";
+
+                if (this.generatedTitles[0]) {
+
+                    return;
+                }
+
+                try {
+
+                    const div = document.createElement("div");
+
+                    div.innerHTML = new String(this.newFundRaiser.story).replaceAll(".", ". ");
+
+                    const story = div.innerText;
+
+                    const titles = await FundRaiserService.generateTitlesForStory(story);
+
+                    this.generatedTitles = titles;
+                } catch (e) {
+                    // log e
+                    console.log(e);
+
+                    this.generatedTitles = ['', '', ''];
+                    this.newFundRaiser.titleMode = "write";
+                }
             },
 
             next() {
 
                 FundRaiserService.set('createFundRaiserCurrentStep', ++this.currentStep);
-                
+
                 const newFundRaiser = JSON.parse(JSON.stringify(this.newFundRaiser));
-                
+
                 FundRaiserService.set("newFundRaiser", newFundRaiser);
+
             },
 
             back() {
@@ -280,6 +308,27 @@
                 FundRaiserService.set('createFundRaiserCurrentStep', this.currentStep);
 
                 FundRaiserService.set("newFundRaiser", {...this.newFundRaiser});
+
+                FundRaiserService.set("newFundRaiserIsComplete", false);
+            },
+
+            async create() {
+
+                await FundRaiserService.set("newFundRaiserIsComplete", true);
+
+                await FundRaiserService.set("newFundRaiser", {...this.newFundRaiser});
+
+                if (UserService.get("isLoggedIn")) {
+
+                    await FundRaiserService.createFundRaiser();
+
+                    this.$router.push({path: "/raisers/preview"});
+
+                    return;
+                }
+
+                this.$router.push({path: "/sign-up"});
+
             }
 
         }
@@ -288,12 +337,12 @@
 </script>
 <style>
     div.ql-container.ql-bubble{
-        overflow: visible scroll;
-        position: fixed;
-        width: 100%;
+        overflow: scroll scroll;
+        position: absolute;
+        width: 80%;
         height: 195px;
     }
-    
+
     .form-section {
         opacity: 0;
         min-height: 0;
