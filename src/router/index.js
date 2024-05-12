@@ -15,6 +15,11 @@ const router = createRouter({
                     name: "Create a Donner Fundraiser",
                     component: () => import("../views/raisers/Create.vue")
                 },
+                {
+                    path: "/raisers/review",
+                    name: "Review your Fundraiser",
+                    component: () => import("../views/raisers/Review.vue")
+                },
                 ...AccountRoutes,
                 // {
                 //   path: "/project/:id",

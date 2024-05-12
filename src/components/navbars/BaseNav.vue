@@ -58,8 +58,8 @@
                     </li> -->
 
                      <li class="nav-item mx-2 d-lg-none d-block">
-                        <RouterLink to="/login" class=" nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center" role="button">
-                            <strong class="text-gradient bg-gradient-primary">Sign in</strong>
+                        <RouterLink to="/raisers/create" class=" nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center" role="button">
+                            <strong class="text-gradient bg-gradient-primary">Create a Raiser</strong>
                         </RouterLink>
                     </li> 
 
@@ -67,7 +67,9 @@
 
                 <ul class="navbar-nav d-lg-block d-none">
                      <li class="nav-item">
-                        <RouterLink to="/login" class="btn btn-sm  bg-gradient-primary  btn-round mb-0 me-1" role="button">Sign in</RouterLink>
+                        <RouterLink to="/raisers/create" class="btn btn-sm bg-gradient-primary btn-round mb-0 me-1" role="button">
+                            Create a Raiser
+                        </RouterLink>
                     </li> 
                 </ul>
             </div>

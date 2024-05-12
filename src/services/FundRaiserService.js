@@ -1,7 +1,10 @@
-import { getNewFundRaiserStore } from "@/stores/new-fund-raiser";
-import API from "@/services/API"
+import API from "@/services/API";
 
-        const newFundRaiserStore = getNewFundRaiserStore();
+import { getNewFundRaiserStore } from "@/stores/new-fund-raiser";
+import { getNotificationStore } from '@/stores/notification';
+
+const newFundRaiserStore = getNewFundRaiserStore();
+const notificationStore = getNotificationStore();
 
 const getters = {
 
@@ -54,12 +57,12 @@ export default {
 
     async createFundRaiser() {
         const newFundRaiserIsComplete = await this.get("newFundRaiserIsComplete");
-        
-        if(!newFundRaiserIsComplete) {
-            
-            throw new Error("Your   fundraiser cannot be created because it is not complete");
+
+        if (!newFundRaiserIsComplete) {
+
+            throw new Error("Your fundraiser cannot be created because it is not complete");
         }
-        
+
         const newFundRaiser = await this.get("newFundRaiser");
 
         try {
@@ -71,16 +74,30 @@ export default {
 
             return response;
         } catch (error) {
-            throw new Error(error.response ? error.response.data.message : error.message);
+            
+            notificationStore.toast({
+                message: error.message,
+                duration: 20000
+            });
+               
+            throw error;
         }
     },
 
     async generateTitlesForStory(story) {
-        const {data: titles} = await API.post("fundraiser/story", {
-            data: {
-                story
-            }
-        });
+        try {
+            const {data: titles} = await API.post("fundraiser/story", {
+                data: {
+                    story
+                }
+            });
+        } catch(error) {
+            
+            notificationStore.toast({
+                message: error.message,
+                duration: 5000
+            });
+        }
 
         return titles;
 

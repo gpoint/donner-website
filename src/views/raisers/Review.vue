@@ -15,7 +15,7 @@
                 </div>
                 <div class="container my-0 my-sm-5 p-0 ">
                     <div class="row">
-                        <div class="col-lg-8 d-flex justify-content-center flex-column my-0 my-sm-5">
+                        <div class="col-lg-12 d-flex justify-content-center flex-column my-0 my-sm-5">
                             <div class="card card-body blur d-flex justify-content-top px-sm-5 shadow-lg mt-md-5 mt-sm-4 mt-0 py-5 pb-10 pb-sm-5 min-vh-75 rounded-0">
 
                                 <h1 class="text-gradient text-dark mb-0 mt-8 mt-sm-0">{{ isLoggedIn ? `Hi, ${user.name}` : 'Start a successful fundraiser' }} </h1>
@@ -167,7 +167,7 @@
 </template>
 
 <script>
-    /* external packages */
+    /* packages */
     import { QuillEditor } from '@vueup/vue-quill'
     import '@vueup/vue-quill/dist/vue-quill.bubble.css';
 
@@ -319,16 +319,10 @@
                 await FundRaiserService.set("newFundRaiser", {...this.newFundRaiser});
 
                 if (UserService.get("isLoggedIn")) {
-                    
-                    try {
-                        
-                        await FundRaiserService.createFundRaiser();
 
-                        this.$router.push({path: "/raisers/review"});
-                        
-                    } catch(e) {
-                        console.error(e.message)
-                    }
+                    await FundRaiserService.createFundRaiser();
+
+                    this.$router.push({path: "/raisers/preview"});
 
                     return;
                 }
