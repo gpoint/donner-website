@@ -151,7 +151,7 @@
 
 <script>
     
-    import { getNavigationStore } from "@/stores/navigation";
+    import { getNavigationStore } from "@/stores/NavigationStore";
     
     const attachTranslator = () => {
 

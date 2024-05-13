@@ -1,7 +1,7 @@
 import API from "@/services/API";
 
-import { getNewFundRaiserStore } from "@/stores/new-fund-raiser";
-import { getNotificationStore } from '@/stores/notification';
+import { getNewFundRaiserStore } from "@/stores/NewFundRaiserStore";
+import { getNotificationStore } from '@/stores/NotificationStore';
 
 const newFundRaiserStore = getNewFundRaiserStore();
 const notificationStore = getNotificationStore();
@@ -77,7 +77,8 @@ export default {
             
             notificationStore.toast({
                 message: error.message,
-                duration: 20000
+                duration: 5000,
+                textClasses: "text-gradient text-warning"
             });
                
             throw error;

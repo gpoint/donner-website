@@ -3,7 +3,7 @@
         <div id="ofBar" v-for="(toast, index) in toasts">
             <div id="ofBar-logo"> 
                 <img alt="creative-tim-logo" src="/favicon.ico"></div>
-            <div id="ofBar-content" v-html="toast.message">
+            <div id="ofBar-content" :class="toast.textClasses" v-html="toast.message">
 
             </div>
             <div id="ofBar-right">
@@ -15,7 +15,7 @@
 </template>
 <script>
 
-    import { getNotificationStore } from '@/stores/notification';
+    import { getNotificationStore } from '@/stores/NotificationStore';
 
     export default {
         methods: {

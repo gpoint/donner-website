@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 
-import cookieUtils from "../utils/cookie.utils";
+import CookieUtility from "@/utilities/CookieUtility";
 
 const stringifiedUser = localStorage.getItem("user");
 
@@ -8,19 +8,18 @@ const user = !!stringifiedUser ? JSON.parse(stringifiedUser) : {};
 
 export const getUserStore = defineStore("user", {
   state: () => ({
-    ...user,
-    authorization: cookieUtils.seeCookie("authorization")
+    ...user
   }),
   getters: {
     isLoggedIn: (state) => {
-      return !!state.authorization;
+      return !!CookieUtility.tasteCookie("authorization");
     }
   },
   actions: {
     logout() {
       this.authorization = null;
       localStorage.removeItem("user");
-      cookieUtils.eatCookie("authorization");
+      CookieUtility.eatCookie("authorization");
     }
-  },
+  }
 });

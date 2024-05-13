@@ -1,32 +1,42 @@
 import axios from "axios";
 
-import config from "./config";
-import authHeader from "./auth-header";
+import AuthenticationService from "@/services/AuthenticationService";
+import ConfigurationService from "@/services/ConfigurationService";
 
-const API_URL = config.API_URL;
+const apiURL = ConfigurationService.get("apiURL");
+//
+//const handleError = (error) => {
+//    
+//    throw new BaseError();
+//}
 
 export default {
 
     post: async (resource, {query, data, headers}) => {
 
-        const stringifiedQuery = query
-                ? Object.keys(query).reduce((stringBuild, currentKey) => `${stringBuild}&${currentKey}=${query[currentKey]}`)
-                : '';
+        let stringifiedQuery = "";
+
+        if (query) {
+            stringifiedQuery = `?${Object.keys(query).reduce((previousValue, currentValue) => `${previousValue}&${currentValue}=${query[currentValue]}`)}`;
+        }
 
         try {
 
-            const { data: responseData } = await axios.post(`${API_URL + resource}?${stringifiedQuery}`, data, {
+            const authorizationHeaders = AuthenticationService.getAuthHeader();
+
+            const {data: responseData} = await axios.post(`${apiURL + resource + stringifiedQuery}`, data, {
                 headers: {
                     ...headers,
-                    ...authHeader
+                    ...authorizationHeaders
                 }
             });
-            
+
             return responseData;
 
         } catch (error) {
-            throw new Error(error.response ? error.response.data.message : error.message);
-    }
+
+            throw error;
+        }
     },
 
     get: async (resource, {query, headers}) => {

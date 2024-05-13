@@ -96,7 +96,7 @@
                                         </div>
                                     </div>
 
-                                    <form class="form-section" :class="{'active': currentStep == 5}" @submit.prevent="next();">
+                                    <form class="form-section" :class="{'active': currentStep == 5}" @submit.prevent="next">
                                         <h6 class="mb-2 mt-3">Let donors know what you are raising for, why it is important, and how their donations will make things better.</h6>
                                         <div class="px-md-3 px-sm-1">
                                             <div class="form-group mt-4">
@@ -113,7 +113,7 @@
                                         </div>
                                     </form>
 
-                                    <div class="form-section" :class="{'active': currentStep == 6}" @submit.prevent="$router.push('/accounts/signup')">
+                                    <form class="form-section" :class="{'active': currentStep == 6}" @submit.prevent="create">
                                         <h6 class="mb-2 mt-3">
                                             {{ newFundRaiser.titleMode === 'pick'  ? 'Pick an AI suggested title' : 'Give your fundraiser an amazing title' }}
                                         </h6>
@@ -148,12 +148,12 @@
                                                 </a>
                                             </div>
                                             <div class="form-group">
-                                                <BaseButton :disabled="newFundRaiser.title ? undefined : true" @click="create" class="btn btn-primary float-end mt-3" nativeType="submit">
+                                                <BaseButton :disabled="newFundRaiser.title ? undefined : true" class="btn btn-primary float-end mt-3" nativeType="submit">
                                                     Create
                                                 </BaseButton>
                                             </div>
                                         </div>
-                                    </div>
+                                    </form>
 
                                 </div>
                             </div>
@@ -176,7 +176,7 @@
     import SDGSelect from '@/components/forms/SDGSelect.vue';
     import BaseButton from "@/components/forms/BaseButton.vue"
 
-            /* services */
+    /* services */
     import ConfigurationService from '@/services/ConfigurationService';
     import FundRaiserService from '@/services/FundRaiserService';
     import NavigationService from "@/services/NavigationService";
@@ -203,7 +203,7 @@
 
             this.newFundRaiser = await FundRaiserService.get("newFundRaiser");
 
-            this.categories = await ConfigurationService.get('categories');
+            this.categories = ConfigurationService.get('fundRaiserCategories');
 
             this.currentStep = await FundRaiserService.get('createFundRaiserCurrentStep') || 1;
 
@@ -313,7 +313,7 @@
             },
 
             async create() {
-
+                
                 await FundRaiserService.set("newFundRaiserIsComplete", true);
 
                 await FundRaiserService.set("newFundRaiser", {...this.newFundRaiser});
@@ -327,7 +327,7 @@
                         this.$router.push({path: "/raisers/review"});
                         
                     } catch(e) {
-                        console.error(e.message)
+                        console.error(e.message);
                     }
 
                     return;

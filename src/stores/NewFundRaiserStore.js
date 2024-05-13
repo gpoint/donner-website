@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 
-const initialCountry = 'Nigeria'; // TODO determine initial countrty from Geo and IP data
+const initialCountry = 'Nigeria';
+const initialCurrency = 'NGN'; // TODO determine initial country from Geo and IP data
 
 const newFundRaiserBaseModel = {
     category: '',
@@ -8,6 +9,7 @@ const newFundRaiserBaseModel = {
     title: '',
     story: '',
     country: initialCountry,
+    currency: initialCurrency,
     titleMode: 'write',
     goal: '',
     target: '',

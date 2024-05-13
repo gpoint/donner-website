@@ -1,5 +1,7 @@
 const configurations = {
-    categories: [
+    baseURL: "https://donner.africa/",
+    apiURL: "http://localhost:8000/",
+    fundRaiserCategories: [
         {
             "name": "Health",
             "subCategories": [
@@ -154,8 +156,9 @@ const configurations = {
     ]
 };
 
+
 export default {
-    async get(name) {
+    get(name) {
         return configurations[name];
     }
 };

@@ -79,8 +79,8 @@
 </template>
 
 <script>
-    import { getNavigationStore } from "@/stores/navigation";
-    import { getUserStore } from "@/stores/user";
+    import { getNavigationStore } from "@/stores/NavigationStore";
+    import { getUserStore } from "@/stores/UserStore";
 
     export default {
         data() {
