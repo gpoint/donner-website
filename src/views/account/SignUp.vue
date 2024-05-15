@@ -100,7 +100,7 @@
                                                 <div class="form-check form-switch">
                                                     <input class="form-check-input" type="checkbox" checked="true" id="receiveUpdates" v-model="signUpModel.receiveUpdates" :disabled="loading | undefined" >
                                                     <label class="form-check-label" for="receiveUpdates">
-                                                        Receive raising tips and updates on noteworthy fundraisers and events from <span class="text-bold text-gradient text-primary">your favorite philanthropy team</span>.
+                                                        Receive raising tips and updates on noteworthy fundraising events from <span class="text-bold text-gradient text-primary">your favorite philanthropy team</span>.
                                                         You can unsubscribe at any time.
                                                     </label>
                                                 </div>
@@ -130,11 +130,15 @@
 </template>
 
 <script>
+    /* components */
     import BaseButton from "@/components/forms/BaseButton.vue"
-    import FormMessage from '@/components/forms/FormMessage.vue';
+    import FormMessage from "@/components/forms/FormMessage.vue";
 
-    import AuthenticationService from '@/services/authentication';
-    import { getNavigationStore } from "@/stores/navigation";
+    /* services */
+    import AccountService from "@/services/AccountService";
+    
+    /* stores */
+    import { getNavigationStore } from "@/stores/NavigationStore";
 
     export default {
         components: {
@@ -196,17 +200,11 @@
                         password: this.signUpModel.password
                     };
 
-                    const response = await AuthenticationService.register(payload);
+                    const user = await AccountService.registerUser(payload);
                     
-                    const { verified } = response;
+                    const { verified } = user;
                     
-                    console.log(response);
-                    
-                    if(verified) {
-                        return this.$router.push('/raisers/create');
-                    }
-                    
-                    AuthenticationService.initiateVerification('');
+                    AccountService.createVerification({ type: "OTP", channel: "SMS" });
                     
                     this.$router.push('/account/verification/');
                     

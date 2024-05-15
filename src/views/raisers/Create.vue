@@ -55,7 +55,7 @@
                                                 <div class="input-group mx-2">
                                                     <span class="input-group-text px-3"><i class="fas" aria-hidden="true">₦</i></span>
                                                     <input class="form-control form-control-lg" required v-model="newFundRaiser.target" @input="formatAmount" placeholder="Your dream amount" >
-                                                    <button type="button" class="bg-white px-3 mb-0 " style="border-radius: 0 .5rem .5rem 0; border: solid 1px #141727;">
+                                                    <button type="button" class="bg-white px-3 mb-0 " style="border-radius: 0 .5rem .5rem 0; border: solid 1px #195706;">
                                                         <i class="badge bg-gradient-dark text-white text-bold" aria-hidden="true">NGN</i>
                                                     </button>
                                                 </div>
@@ -115,7 +115,7 @@
 
                                     <form class="form-section" :class="{'active': currentStep == 6}" @submit.prevent="create">
                                         <h6 class="mb-2 mt-3">
-                                            {{ newFundRaiser.titleMode === 'pick'  ? 'Pick an AI suggested title' : 'Give your fundraiser an amazing title' }}
+                                            {{ newFundRaiser.titleMode === 'pick'  ? 'Pick an AI suggested title.' : 'Give your fundraiser an amazing title.' }}
                                         </h6>
 
                                         <div class="px-md-4 ps-2 pe-4 row">
@@ -134,17 +134,17 @@
                                                     </button>
                                                 </div>
                                                 <a href="#" @click.prevent="newFundRaiser.titleMode = 'write'" class="text-gradient text-primary text-bold text-sm mx-2 mt-2">
-                                                    Come up with something better
+                                                    ... or come up with something better.
                                                 </a>
                                             </div>
                                             <div class="form-group mt-3" v-if="newFundRaiser.titleMode === 'write'">
                                                 <div class="input-group mx-2 my-6 bg-white">
 
-                                                    <input class="form-control form-control-lg text-center text-lg text-dark text-gradient text-bold " v-model="newFundRaiser.title">
+                                                    <input class="form-control form-control-lg text-center text-lg text-dark text-gradient text-bold " v-model="newFundRaiser.title" placeholder="Your amazing title...">
 
                                                 </div>
                                                 <a href="#" @click.prevent="generateTitles" class="text-gradient text-primary text-bold text-sm mx-2 mt-2">
-                                                    Pick an AI suggested title
+                                                    ... or choose an AI suggested titles.
                                                 </a>
                                             </div>
                                             <div class="form-group">
@@ -176,7 +176,7 @@
     import SDGSelect from '@/components/forms/SDGSelect.vue';
     import BaseButton from "@/components/forms/BaseButton.vue"
 
-    /* services */
+            /* services */
     import ConfigurationService from '@/services/ConfigurationService';
     import FundRaiserService from '@/services/FundRaiserService';
     import NavigationService from "@/services/NavigationService";
@@ -207,13 +207,15 @@
 
             this.currentStep = await FundRaiserService.get('createFundRaiserCurrentStep') || 1;
 
-            NavigationService.set('showNavigationBar', false);
-            NavigationService.set('showFooter', false);
+            await NavigationService.set('showNavigationBar', false);
+
+            await NavigationService.set('showFooter', false);
 
         },
         beforeUnmount() {
 
             NavigationService.set('showNavigationBar', true);
+
             NavigationService.set('showFooter', true);
         },
         async mounted() {
@@ -222,18 +224,38 @@
                 name: await UserService.get('name')
             };
 
-            this.isLoggedIn = await UserService.get('authorization');
+            this.isLoggedIn = await UserService.get('isLoggedIn');
+
+            if (this.currentStep == 6 && this.newFundRaiser.titleMode === "pick") {
+                if (this.isLoggedIn) {
+                    this.generateTitles();
+                } else {
+                    this.newFundRaiser.titleMode = "write";
+
+                    console.log({...this.newFundRaiser}, this.isLoggedIn);
+
+                }
+            }
         },
         computed: {
+
             categoryNames() {
+
                 return this.categories.map(category => category.name);
             },
+
             subCategoryNames() {
+
                 const selectedCategory = this.categories.find(category => category.name === this.newFundRaiser.category);
+
                 if (selectedCategory) {
+
                     return selectedCategory.subCategories;
-                } else
+
+                } else {
+
                     return [];
+                }
             }
         },
         methods: {
@@ -283,12 +305,14 @@
                     const titles = await FundRaiserService.generateTitlesForStory(story);
 
                     this.generatedTitles = titles;
+
                 } catch (e) {
                     // log e
-                    console.log(e);
 
                     this.generatedTitles = ['', '', ''];
+
                     this.newFundRaiser.titleMode = "write";
+
                 }
             },
 
@@ -314,26 +338,35 @@
 
             async create() {
                 
+                this.loading = true;
+                
+                this.$Progress.start();
+
                 await FundRaiserService.set("newFundRaiserIsComplete", true);
 
                 await FundRaiserService.set("newFundRaiser", {...this.newFundRaiser});
 
-                if (UserService.get("isLoggedIn")) {
-                    
+                if (this.isLoggedIn) {
+
                     try {
-                        
-                        await FundRaiserService.createFundRaiser();
+
+                        await FundRaiserService.commitNewFundRaiser();
 
                         this.$router.push({path: "/raisers/review"});
-                        
-                    } catch(e) {
-                        console.error(e.message);
-                    }
 
-                    return;
+                    } catch (e) {
+
+                        console.error(e.message);
+
+                    }
+                } else {
+
+                    this.$router.push({path: "/account/sign-up"});
                 }
 
-                this.$router.push({path: "/sign-up"});
+                this.loading = false;
+                
+                this.$Progress.finish();
 
             }
 

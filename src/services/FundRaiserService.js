@@ -86,12 +86,17 @@ export default {
     },
 
     async generateTitlesForStory(story) {
+        
         try {
+            
             const {data: titles} = await API.post("fundraiser/story", {
                 data: {
                     story
                 }
             });
+
+            return titles;
+            
         } catch(error) {
             
             notificationStore.toast({
@@ -99,8 +104,6 @@ export default {
                 duration: 5000
             });
         }
-
-        return titles;
 
     }
 };

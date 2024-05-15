@@ -47,6 +47,10 @@
         height: 40vh;
         overflow-y: scroll;
     }
+    
+    #toastPane:empty {
+        z-index: 0;
+    }
 
     #ofBar {
         background: #fff;

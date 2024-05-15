@@ -2228,7 +2228,7 @@ progress {
   color: #495057;
   background-color: #fff;
   background-clip: padding-box;
-  border: 1px solid #141727;
+  border: 1px solid #195706;
   appearance: none;
   transition: box-shadow 0.15s ease, border-color 0.15s ease;
 }
@@ -2361,7 +2361,7 @@ textarea.form-control-sm {
   background-repeat: no-repeat;
   background-position: right 0.75rem center;
   background-size: 16px 12px;
-  border: 1px solid #141727;
+  border: 1px solid #195706;
   border-radius: 0.5rem;
   appearance: none;
 }
@@ -2718,7 +2718,7 @@ textarea.form-control-sm {
   text-align: center;
   white-space: nowrap;
   background-color: #fff;
-  border: 1px solid #141727;
+  border: 1px solid #195706;
   border-radius: 0.5rem;
 }
 .input-group-lg > .btn,
@@ -17167,7 +17167,7 @@ fieldset:disabled .btn {
 .input-group .form-control + .input-group-text {
   position: absolute;
   border-left: 0;
-  border-right: 1px solid #141727;
+  border-right: 1px solid #195706;
 }
 .input-group .input-group-text {
   border-right: 0;
@@ -19503,7 +19503,7 @@ html {
   border-left: 0;
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
-  border-right: 1px solid #141727;
+  border-right: 1px solid #195706;
 }
 .rtl
   .input-group
@@ -19514,7 +19514,7 @@ html {
   border-top-left-radius: 0.5rem;
   border-bottom-left-radius: 0.5rem;
   border-right: 0;
-  border-left: 1px solid #141727;
+  border-left: 1px solid #195706;
 }
 .rtl .input-group:not(.has-validation) > .dropdown-toggle:nth-last-child(n + 3),
 .rtl
@@ -25761,7 +25761,7 @@ body.swal2-toast-shown .swal2-container.swal2-bottom-right {
   color: #495057;
   background-color: #fff;
   background-clip: padding-box;
-  border: 1px solid #141727;
+  border: 1px solid #195706;
 }
 @keyframes y {
   0% {
@@ -27189,7 +27189,7 @@ body.swal2-toast-shown .swal2-container.swal2-bottom-right {
   vertical-align: top;
   width: 100%;
   padding: 0.5rem 0.75rem;
-  border: 1px solid #141727;
+  border: 1px solid #195706;
   border-radius: 0.5rem;
   font-size: 14px;
   min-height: 40px;

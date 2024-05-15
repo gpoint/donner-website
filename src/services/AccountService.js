@@ -1,7 +1,5 @@
-import axios from "axios";
-
 /* services */
-import ConfigurationService from "./ConfigurationService";
+import API from "./API";
 
 /* stores */
 import { getUserStore } from "@/stores/UserStore";
@@ -9,9 +7,7 @@ import { getUserStore } from "@/stores/UserStore";
 /* utilities */
 import CookieUtility from "@/utilities/CookieUtility";
 
-var apiURL = ConfigurationService.get("apiURL");
-
-class AuthService {
+class AccountService {
 
     getAuthHeader() {
 
@@ -52,43 +48,49 @@ class AuthService {
     }
 
     async login(payload) {
-        let response;
+        
+        const { 
+            email,
+            password,
+            rememberDevice
+        } = payload;
 
         try {
-            response = await axios.post(apiURL + "account/login?role=USER", {
-                email: payload.email,
-                password: payload.password,
-                remember: payload.remember
+            
+            const {data} = await API.post("account/login", {
+                data: {
+                    email,
+                    password,
+                    rememberDevice
+                }
             });
+            
+            const {user, accessToken} = data;
+
+            const userStore = useUserStore();
+
+            userStore.$patch({
+                ...user
+            });
+
+            CookieUtility.bakeCookie({
+                name: "authorization",
+                value: accessToken,
+                maxAge: payload.remember ? 86400000 : null
+            });
+
+            return user;
+            
         } catch (error) {
-            throw new Error(
-                    error.response ? error.response.data.message : error.message
-                    );
+
+            throw error;
         }
-
-        const {data} = response;
-
-        const {user, accessToken} = data;
-
-        const userStore = useUserStore();
-
-        userStore.$patch({
-            ...user
-        });
-
-        CookieUtility.bakeCookie({
-            name: "authorization",
-            value: accessToken,
-            maxAge: payload.remember ? 60 * 60 * 24 * 183 : null
-        });
-
-        return user;
     }
 
-    async register(payload) {
-        let response;
+    async registerUser(payload) {
 
         // Unbox the payload parameter to form a serializable payload
+
         const {
             firstName,
             lastName,
@@ -101,52 +103,53 @@ class AuthService {
 
         try {
 
-            response = await axios.post(apiURL + "account/sign-up", {
-                firstName,
-                lastName,
-                email,
-                countryCode,
-                phone,
-                password,
-                receiveUpdates
+            let response;
+
+            response = await API.post("account/sign-up", {
+                data: {
+                    firstName,
+                    lastName,
+                    email,
+                    countryCode,
+                    phone,
+                    password,
+                    receiveUpdates
+                }
             });
+
+
+            const {data} = response;
+
+            // Store user and authorization objects
+
+            const {user, accessToken} = data;
+
+            const userStore = useUserStore();
+
+            userStore.$patch({
+                ...user,
+                authorization: accessToken
+            });
+
+            CookieUtility.bakeCookie({
+                name: "authorization",
+                value: accessToken,
+                maxAge: 86400000
+            });
+
+            return user;
 
         } catch (error) {
 
-            throw new Error(
-                    error.response ? error.response.data.message : error.message
-                    );
-
+            throw error;
         }
-
-        const {data} = response;
-
-        // Store user and authorization objects
-
-        const {user, accessToken} = data;
-        const userStore = useUserStore();
-
-        userStore.$patch({
-            ...user,
-            authorization: accessToken
-        });
-
-        localStorage.setItem("user", JSON.stringify(user));
-
-        CookieUtility.bakeCookie({
-            name: "authorization",
-            value: accessToken,
-            maxAge: 60 * 60 * 24 * 183
-        });
-
-        return user;
     }
 
     async resetPassword(payload) {
         let response;
 
         try {
-            response = await axios.post(apiURL + "account/password-reset", {
+            response = await API.post(apiURL + "account/password-reset", {
                 email: payload.email
             });
         } catch (error) {
@@ -164,7 +167,7 @@ class AuthService {
         let response;
 
         try {
-            response = await axios.get(
+            response = await API.get(
                     apiURL + `account/password-reset?token=${token}`
                     );
         } catch (error) {
@@ -182,15 +185,14 @@ class AuthService {
         let response;
 
         try {
-            response = await axios.put(
+            response = await API.put(
                     apiURL + `account/password-reset?token=${token}`, {
                         password: payload.password
                     }
             );
         } catch (error) {
-            throw new Error(
-                    error.response ? error.response.data.message : error.message
-                    );
+            
+            throw error;
         }
 
         const {data} = response;
@@ -198,11 +200,32 @@ class AuthService {
         return data;
     }
 
+    async createVerification({ type = "OTP", channel = "SMS" }) {
+
+        try {
+
+            const {data} = await API.post("account/verification", {
+                data: {
+                    type,
+                    channel
+                },
+                authorizeRequest: true
+            });
+
+            return data;
+
+        } catch (error) {
+
+            throw error;
+        }
+    }
+
     logout() {
-        localStorage.removeItem("auth");
-        localStorage.removeItem("user");
-        localStorage.removeItem("accessToken");
+        
+        CookieUtility.eatCookie("authorization");
+        
+        userStore.logout();
     }
 }
 
-export default new AuthService();
+export default new AccountService();

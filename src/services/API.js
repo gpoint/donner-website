@@ -1,18 +1,17 @@
 import axios from "axios";
 
-import AuthenticationService from "@/services/AuthenticationService";
+/* errors */
+import { ErrorHandler } from "@/errors";
+
+/* services */
+import AccountService from "@/services/AccountService";
 import ConfigurationService from "@/services/ConfigurationService";
 
 const apiURL = ConfigurationService.get("apiURL");
-//
-//const handleError = (error) => {
-//    
-//    throw new BaseError();
-//}
 
 export default {
 
-    post: async (resource, {query, data, headers}) => {
+    post: async (resource, {query, data, headers, authorizeRequest = false}) => {
 
         let stringifiedQuery = "";
 
@@ -22,7 +21,7 @@ export default {
 
         try {
 
-            const authorizationHeaders = AuthenticationService.getAuthHeader();
+            const authorizationHeaders = authorizeRequest ? AccountService.getAuthHeader() : {};
 
             const {data: responseData} = await axios.post(`${apiURL + resource + stringifiedQuery}`, data, {
                 headers: {
@@ -35,7 +34,7 @@ export default {
 
         } catch (error) {
 
-            throw error;
+            ErrorHandler.handleError(error);
         }
     },
 

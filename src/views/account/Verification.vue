@@ -16,7 +16,7 @@
                                     </div>
                                     <h2>Welcome back</h2>
                                     <p class="mb-4">Sign in to manage fundraisers.</p>
-                                    <form class="form-section active" @submit.prevent="login">
+                                    <form class="form-section active">
                                         <div class="px-md-4 ps-2 pe-4 row">
                                             <div class="form-group mt-3">
                                                 <label class="text-gradient text-dark text-sm">
@@ -24,7 +24,7 @@
                                                 </label>
                                                 <div class="input-group mx-2">
                                                     <span class="input-group-text px-3"><i class="fas fa-leaf" aria-hidden="true"></i></span>
-                                                    <input class="form-control form-control-lg text-lg" required type="email" placeholder="email@email.com" v-model="loginModel.email">
+                                                    <input class="form-control form-control-lg text-lg" required email placeholder="email@email.com" >
                                                 </div>
                                             </div>
                                             <div class="form-group mt-3">
@@ -33,12 +33,12 @@
                                                 </label>
                                                 <div class="input-group mx-2">
                                                     <span class="input-group-text px-3"><i class="fas fa-lock" aria-hidden="true"></i></span>
-                                                    <input class="form-control form-control-lg text-lg" required type="password" placeholder="* * * * * * * *" v-model="loginModel.password">
+                                                    <input class="form-control form-control-lg text-lg" required type="password" placeholder="********" >
                                                 </div>
                                             </div>
                                             <div class="form-group mt-3 mx-2">
                                                 <div class="form-check form-switch">
-                                                    <input class="form-check-input" type="checkbox" id="rememberMe" v-model="loginModel.rememberDevice">
+                                                    <input class="form-check-input" type="checkbox" id="rememberMe">
                                                     <label class="form-check-label" for="rememberMe">
                                                         Stay logged in on this device
                                                     </label>
@@ -72,14 +72,8 @@
 </template>
 
 <script>
-    
-    /* components */
-    import BaseButton from "@/components/forms/BaseButton.vue";
-    
-    /* services */
-    import AccountService from "@/services/AccountService";
+    import BaseButton from "@/components/forms/BaseButton.vue"
 
-    /* stores */
     import { getNavigationStore } from "@/stores/NavigationStore";
 
     export default {
@@ -87,17 +81,12 @@
             BaseButton
         },
         data() {
-            return {
-                loginModel: {
-                    email: "",
-                    password: "",
-                    rememberDevice: false
-                }
-            };
+            return {};
         },
         beforeMount() {
             const navigationStore = getNavigationStore();
 
+            console.log(navigationStore);
             navigationStore.$state.showNavigationBar = false;
             navigationStore.$state.showFooter = false;
         },
@@ -106,34 +95,6 @@
 
             navigationStore.$state.showNavigationBar = true;
             navigationStore.$state.showFooter = true;
-        },
-        methods: {
-            
-            async login() {
-                
-                try {
-                    ;
-                } catch (error) {
-                    console.log(error.message);
-                }
-                const loginPayload = {
-                    ...loginModel
-                };
-                
-                const login = await AccountService.login(loginPayload);
-                
-                if(login.flag === "SUCCESS") {
-                    
-                    const verification = await AccountService.createVerification();
-                    
-                    this.$router.push({
-                        path: "/account/verification",
-                        params: {
-                            verification
-                        }
-                    });
-                }
-            }
         }
     }
 </script>

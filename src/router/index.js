@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 
 /* services */
-import AuthenticationService from "@/services/AuthenticationService";
+import AccountService from "@/services/AccountService";
 
 /* routes */
 import AccountRoutes from "./AccountRoutes";
@@ -32,7 +32,7 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
     if (to.path.includes("logout")) {
 
-        AuthenticationService.logUserOut();
+        AccountService.logUserOut();
 
         next("/login");
     }

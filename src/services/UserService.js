@@ -8,7 +8,7 @@ const getters = {
 
     authorization: () => userStore.$state.authorization,
 
-    isLoggedIn: () => !!userStore.$state.authorization
+    isLoggedIn: () => !!CookieUtility.tasteCookie("authorization")
 };
 
 const setters = {
