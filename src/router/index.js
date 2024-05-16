@@ -38,6 +38,12 @@ router.beforeEach((to, from, next) => {
     }
 
     const authorizationRequired = to.meta.authorizationRequired;
+    
+    const title = to.meta.title;
+    
+    if(title) {
+        document.title = `Donner | ${title}`;
+    }
 
 //    let loggedIn = localStorage.getItem("user");
 

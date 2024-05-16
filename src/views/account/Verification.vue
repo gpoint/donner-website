@@ -14,8 +14,8 @@
                                             <img src='/img/icon.png' class="w-90 h-90 mt-1">
                                         </a>
                                     </div>
-                                    <h2>Welcome back</h2>
-                                    <p class="mb-4">Sign in to manage fundraisers.</p>
+                                    <h2>Verify your account</h2>
+                                    <p class="mb-4">Complete verification to manage your fundraisers.</p>
                                     <form class="form-section active">
                                         <div class="px-md-4 ps-2 pe-4 row">
                                             <div class="form-group mt-3">
@@ -27,37 +27,19 @@
                                                     <input class="form-control form-control-lg text-lg" required email placeholder="email@email.com" >
                                                 </div>
                                             </div>
-                                            <div class="form-group mt-3">
-                                                <label class="text-gradient text-dark text-sm">
-                                                    Password
-                                                </label>
-                                                <div class="input-group mx-2">
-                                                    <span class="input-group-text px-3"><i class="fas fa-lock" aria-hidden="true"></i></span>
-                                                    <input class="form-control form-control-lg text-lg" required type="password" placeholder="********" >
-                                                </div>
-                                            </div>
-                                            <div class="form-group mt-3 mx-2">
-                                                <div class="form-check form-switch">
-                                                    <input class="form-check-input" type="checkbox" id="rememberMe">
-                                                    <label class="form-check-label" for="rememberMe">
-                                                        Stay logged in on this device
-                                                    </label>
-                                                </div>
-                                            </div>
                                             <div class="form-group mt-3 pt-4">
-                                                <span class="text-lg text-gradient text-dark">
-                                                    Don't have an account?
-                                                    <RouterLink to="/account/sign-up" class="text-primary text-bold text-gradient">
-                                                        Sign Up
-                                                    </RouterLink>
-                                                </span>
                                                 <BaseButton class="btn btn-primary float-end" type="submit">
                                                     Login
                                                 </BaseButton>
                                             </div>
-                                            <RouterLink to="/account/password-reset" class="w-100 mb-4 text-bold text-primary">
-                                                Don't remember your password?
-                                            </RouterLink>
+                                            <span class="w-100 mb-4 text-bold text-gradient text-dark">
+                                                Did not receive code? 
+                                                <a class="text-gradient text-primary">
+                                                    <u>
+                                                        Resend Code
+                                                    </u>
+                                                </a>
+                                            </span>
                                         </div>
                                     </form>
                                 </div>

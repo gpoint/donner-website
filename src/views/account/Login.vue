@@ -51,7 +51,7 @@
                                                         Sign Up
                                                     </RouterLink>
                                                 </span>
-                                                <BaseButton class="btn btn-primary float-end" type="submit">
+                                                <BaseButton class="btn btn-primary float-end" nativeType="submit">
                                                     Login
                                                 </BaseButton>
                                             </div>
@@ -81,6 +81,7 @@
 
     /* stores */
     import { getNavigationStore } from "@/stores/NavigationStore";
+    import { getNotificationStore } from '@/stores/NotificationStore';
 
     export default {
         components: {
@@ -112,26 +113,29 @@
             async login() {
                 
                 try {
-                    ;
-                } catch (error) {
-                    console.log(error.message);
-                }
-                const loginPayload = {
-                    ...loginModel
-                };
-                
-                const login = await AccountService.login(loginPayload);
-                
-                if(login.flag === "SUCCESS") {
                     
-                    const verification = await AccountService.createVerification();
+                    const loginPayload = {
+                        ...this.loginModel
+                    };
+
+                    const user = await AccountService.login(loginPayload);
                     
+                    const verification = await AccountService.createVerification({});
+
                     this.$router.push({
                         path: "/account/verification",
                         params: {
                             verification
                         }
                     });
+                    
+                } catch (error) {
+                    
+                    console.log(error);
+                    
+                    const notificationStore = getNotificationStore();
+                    
+                    notificationStore.toast(error.getToast());
                 }
             }
         }

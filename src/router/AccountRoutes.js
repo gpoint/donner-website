@@ -16,6 +16,14 @@ const AccountRoutes = [
         }
     },
     {
+        path: "/account/verification",
+        name: "Verification",
+        component: () => import("../views/account/Verification.vue"),
+        meta: {
+            title: "Verify your account"
+        }
+    },
+    {
         path: "/account/password-reset",
         name: "Password Reset",
         component: () => import("../views/account/password-reset/Index.vue"),

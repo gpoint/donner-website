@@ -1,6 +1,8 @@
 /* services */
 import API from "./API";
 
+import {ErrorHandler} from "@/errors"
+
 /* stores */
 import { getUserStore } from "@/stores/UserStore";
 
@@ -57,17 +59,15 @@ class AccountService {
 
         try {
             
-            const {data} = await API.post("account/login", {
+            const {user, accessToken} = await API.post("account/login", {
                 data: {
                     email,
                     password,
                     rememberDevice
                 }
             });
-            
-            const {user, accessToken} = data;
 
-            const userStore = useUserStore();
+            const userStore = getUserStore();
 
             userStore.$patch({
                 ...user
@@ -83,7 +83,7 @@ class AccountService {
             
         } catch (error) {
 
-            throw error;
+            ErrorHandler.handleError(error);
         }
     }
 
@@ -200,11 +200,11 @@ class AccountService {
         return data;
     }
 
-    async createVerification({ type = "OTP", channel = "SMS" }) {
+    async createVerification({ type = "CODE", channel = "SMS" }) {
 
         try {
 
-            const {data} = await API.post("account/verification", {
+            const {verification} = await API.post("account/verification", {
                 data: {
                     type,
                     channel
@@ -212,7 +212,7 @@ class AccountService {
                 authorizeRequest: true
             });
 
-            return data;
+            return verification;
 
         } catch (error) {
 
