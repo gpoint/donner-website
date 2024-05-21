@@ -103,6 +103,8 @@ export default {
                 message: error.message,
                 duration: 5000
             });
+            
+            throw error;
         }
 
     }

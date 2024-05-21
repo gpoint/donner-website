@@ -6,19 +6,21 @@ import "./assets/css/style.css";
 import { createApp } from "vue";
 import { createPinia } from "pinia";
 
-import App from "./App.vue";
-import router from "./router";
-
 import VueProgressBar from "@aacassandra/vue3-progressbar";
+
+import App from "./App.vue";
+const app = createApp(App);
+
+const pinia = createPinia();
+app.use(pinia);
+
+import router from "./router";
+app.use(router);
+
 
 //import Flutterwave from "flutterwave-vue3";
 // import './registerServiceWorker'
 
-const pinia = createPinia();
-const app = createApp(App);
-
-app.use(pinia);
-app.use(router);
 
 const progressBarOptions = {
   color: "#367d21",

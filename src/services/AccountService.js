@@ -3,8 +3,8 @@ import API from "./API";
 
 import {ErrorHandler} from "@/errors"
 
-/* stores */
-import { getUserStore } from "@/stores/UserStore";
+/* services */
+import UserService from "@/services/UserService";
 
 /* utilities */
 import CookieUtility from "@/utilities/CookieUtility";
@@ -13,7 +13,7 @@ class AccountService {
 
     getAuthHeader() {
 
-        const authorization = CookieUtility.tasteCookie("authorization");
+        const authorization = CookieUtility.nibble("authorization");
 
         return {
             Authorization: `Bearer ${authorization}`
@@ -59,31 +59,27 @@ class AccountService {
 
         try {
             
-            const {user, accessToken} = await API.post("account/login", {
+            const {data} = await API.post("account/login", {
                 data: {
                     email,
                     password,
                     rememberDevice
                 }
             });
-
-            const userStore = getUserStore();
-
-            userStore.$patch({
-                ...user
-            });
+            
+            const {accessToken} = data;
 
             CookieUtility.bakeCookie({
-                name: "authorization",
+                name: "preAuthorization",
                 value: accessToken,
-                maxAge: payload.remember ? 86400000 : null
+                maxAge: 1800
             });
 
-            return user;
+            return true;
             
         } catch (error) {
 
-            ErrorHandler.handleError(error);
+           throw error;
         }
     }
 
@@ -103,9 +99,7 @@ class AccountService {
 
         try {
 
-            let response;
-
-            response = await API.post("account/sign-up", {
+            const {data} = await API.post("account/sign-up", {
                 data: {
                     firstName,
                     lastName,
@@ -116,28 +110,16 @@ class AccountService {
                     receiveUpdates
                 }
             });
-
-
-            const {data} = response;
-
-            // Store user and authorization objects
-
-            const {user, accessToken} = data;
-
-            const userStore = useUserStore();
-
-            userStore.$patch({
-                ...user,
-                authorization: accessToken
-            });
-
+            
+            const {accessToken} = data;
+            
             CookieUtility.bakeCookie({
-                name: "authorization",
+                name: "preAuthorization",
                 value: accessToken,
-                maxAge: 86400000
+                maxAge: 1800
             });
 
-            return user;
+            return true;
 
         } catch (error) {
 
@@ -200,19 +182,58 @@ class AccountService {
         return data;
     }
 
-    async createVerification({ type = "CODE", channel = "SMS" }) {
+    async initiateAccountVerification({ type = "CODE", channel = "SMS" }) {
 
         try {
 
-            const {verification} = await API.post("account/verification", {
+            const {data} = await API.post("account/verification", {
                 data: {
                     type,
                     channel
                 },
-                authorizeRequest: true
+                headers: {
+                    Authorization: `Bearer ${CookieUtility.nibble("preAuthorization")}`
+                }
             });
+            
+            const {verification} = data;
 
             return verification;
+
+        } catch (error) {
+
+            throw error;
+        }
+    }
+    
+    async completeAccountVerification({ code }) {
+
+        try {
+
+            const {data, meta} = await API.patch(`account/verification`, {
+                data: {
+                    code
+                },
+                headers: {
+                    Authorization: `Bearer ${CookieUtility.nibble("preAuthorization")}`
+                }
+            });
+            
+            const {accessToken, accessDuration, authorized} = meta;
+
+            CookieUtility.bakeCookie({
+                name: "authorization",
+                value: accessToken,
+                maxAge: accessDuration/1000
+            });
+            
+            CookieUtility.chowCookie("preAuthorization");
+            
+            UserService.set("user", {
+                ...authorized
+            });
+
+            return true;
 
         } catch (error) {
 
@@ -222,9 +243,9 @@ class AccountService {
 
     logout() {
         
-        CookieUtility.eatCookie("authorization");
+        CookieUtility.chowCookie("authorization");
         
-        userStore.logout();
+//        userStore.logout();
     }
 }
 

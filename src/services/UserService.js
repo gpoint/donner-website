@@ -1,49 +1,60 @@
+/* stores */
 import { getUserStore } from "@/stores/UserStore";
 
-const userStore = getUserStore();
+/* utilities */
+import CookieUtility from "@/utilities/CookieUtility";
 
 const getters = {
 
-    name: () => userStore.$state.name,
+    user: () => {
+        
+        const userStore = getUserStore();
+        
+        return {
+            ...userStore.$state
+        };
+    },
 
-    authorization: () => userStore.$state.authorization,
-
-    isLoggedIn: () => !!CookieUtility.tasteCookie("authorization")
+    isLoggedIn: () => !!CookieUtility.nibble("authorization")
 };
 
 const setters = {
-    "*": (user) => {
+    user: (user) => {
+        
         localStorage.setItem("user", JSON.stringify(user));
 
-        userStore.$state.patch({
+        const userStore = getUserStore();
+        
+        userStore.$state = {
             ...user
-        });
-    },
-
-    firstName: (value) => userStore.$state.firstName = value,
-
-    lastName: (value) => userStore.$state.lastName = value,
-
-    authorization: (value) => {
-
-        userStore.$state.authorization = value;
+        };
     }
 };
 
 export default {
 
     async get(name) {
+        
         try {
+            
             return getters[name]();
+            
         } catch (e) {
+            
             return undefined;
         }
     },
 
     async set(name, value) {
+        
         try {
+            
             setters[name](value);
+            
         } catch (e) {
+            
+            console.log(e);
+            
             throw new Error(`Unable to set ${name}`);
         }
     }

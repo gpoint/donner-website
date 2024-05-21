@@ -24,7 +24,7 @@
                                                 </label>
                                                 <div class="input-group mx-2">
                                                     <span class="input-group-text px-3"><i class="fas fa-leaf" aria-hidden="true"></i></span>
-                                                    <input class="form-control form-control-lg text-lg" required type="email" placeholder="email@email.com" v-model="loginModel.email">
+                                                    <input class="form-control form-control-lg text-lg" required type="email" placeholder="email@email.com" v-model="loginModel.email" :disabled="formDisabled">
                                                 </div>
                                             </div>
                                             <div class="form-group mt-3">
@@ -33,12 +33,12 @@
                                                 </label>
                                                 <div class="input-group mx-2">
                                                     <span class="input-group-text px-3"><i class="fas fa-lock" aria-hidden="true"></i></span>
-                                                    <input class="form-control form-control-lg text-lg" required type="password" placeholder="* * * * * * * *" v-model="loginModel.password">
+                                                    <input class="form-control form-control-lg text-lg" required type="password" placeholder="* * * * * * * *" v-model="loginModel.password" :disabled="formDisabled">
                                                 </div>
                                             </div>
                                             <div class="form-group mt-3 mx-2">
                                                 <div class="form-check form-switch">
-                                                    <input class="form-check-input" type="checkbox" id="rememberMe" v-model="loginModel.rememberDevice">
+                                                    <input class="form-check-input" type="checkbox" id="rememberMe" v-model="loginModel.rememberDevice" :disabled="formDisabled">
                                                     <label class="form-check-label" for="rememberMe">
                                                         Stay logged in on this device
                                                     </label>
@@ -51,7 +51,7 @@
                                                         Sign Up
                                                     </RouterLink>
                                                 </span>
-                                                <BaseButton class="btn btn-primary float-end" nativeType="submit">
+                                                <BaseButton class="btn btn-primary float-end" :loading="loading" nativeType="submit">
                                                     Login
                                                 </BaseButton>
                                             </div>
@@ -89,6 +89,7 @@
         },
         data() {
             return {
+                loading: false,
                 loginModel: {
                     email: "",
                     password: "",
@@ -108,11 +109,20 @@
             navigationStore.$state.showNavigationBar = true;
             navigationStore.$state.showFooter = true;
         },
+        computed: {
+            
+            formDisabled() {
+                return this.loading || undefined;
+            }
+        },
         methods: {
             
             async login() {
                 
                 try {
+                    
+                    this.loading = true;
+                    this.$Progress.start();
                     
                     const loginPayload = {
                         ...this.loginModel
@@ -120,23 +130,23 @@
 
                     const user = await AccountService.login(loginPayload);
                     
-                    const verification = await AccountService.createVerification({});
+                    await AccountService.initiateAccountVerification({});
 
                     this.$router.push({
-                        path: "/account/verification",
-                        params: {
-                            verification
-                        }
+                        name: "Verification"
                     });
                     
                 } catch (error) {
                     
                     console.log(error);
                     
-                    const notificationStore = getNotificationStore();
-                    
-                    notificationStore.toast(error.getToast());
+//                    const notificationStore = getNotificationStore();
+//                    
+//                    notificationStore.toast(error.getToast());
                 }
+                    
+                this.loading = false;
+                this.$Progress.finish();
             }
         }
     }

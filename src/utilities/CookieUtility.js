@@ -2,7 +2,7 @@ export default {
 
     bakeCookie: ({ name, value, maxAge, path = "/" }) => {
 
-        let cookieDough = `${name}=${value};Path=${path};`;
+        let cookieDough = `${name}=${value};Path=${path};SameSite=None;Secure;`;
 
         if (!!maxAge) {
 
@@ -12,18 +12,18 @@ export default {
         document.cookie = cookieDough;
     },
 
-    eatCookie: (cookieName) => {
+    chowCookie: (cookieName) => {
         const cookie = document.cookie
                 .split(";")
                 .find((row) => row.includes(`${cookieName}=`))
                 ?.split("=")[1].trim();
         
-        document.cookie = `${cookieName}=;Max-Age=0`;
+        document.cookie = `${cookieName}=;expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
         
         return cookie;
     },
 
-    tasteCookie: (cookieName) => {
+    nibble: (cookieName) => {
 
         return document.cookie
                 .split(";")

@@ -113,6 +113,7 @@
 <style>
     .loading {
         cursor: wait !important;
+        opacity: 0.9;
     }
     .lds-ripple,
     .lds-ripple div {
@@ -131,10 +132,10 @@
         border: 4px solid currentColor;
         opacity: 0;
         border-radius: 50%;
-        animation: lds-ripple 1.5s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+        animation: lds-ripple 4s cubic-bezier(0, 0.2, 0.8, 1) infinite;
     }
     .lds-ripple div:nth-child(2) {
-        animation-delay: 0.75s;
+        animation-delay: 2s;
     }
     @keyframes lds-ripple {
         0% {

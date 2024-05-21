@@ -206,7 +206,9 @@
             this.categories = ConfigurationService.get('fundRaiserCategories');
 
             this.currentStep = await FundRaiserService.get('createFundRaiserCurrentStep') || 1;
-
+            
+            this.isLoggedIn = await UserService.get("isLoggedIn");
+            
             await NavigationService.set('showNavigationBar', false);
 
             await NavigationService.set('showFooter', false);
@@ -221,20 +223,12 @@
         async mounted() {
 
             this.user = {
-                name: await UserService.get('name')
+                ...await UserService.get('user')
             };
-
-            this.isLoggedIn = await UserService.get('isLoggedIn');
-
+            
             if (this.currentStep == 6 && this.newFundRaiser.titleMode === "pick") {
-                if (this.isLoggedIn) {
-                    this.generateTitles();
-                } else {
-                    this.newFundRaiser.titleMode = "write";
-
-                    console.log({...this.newFundRaiser}, this.isLoggedIn);
-
-                }
+                
+                this.newFundRaiser.titleMode = "write";
             }
         },
         computed: {
@@ -289,7 +283,9 @@
 
                 this.newFundRaiser.titleMode = "pick";
 
-                if (this.generatedTitles[0]) {
+                const generatedTitles = this.generatedTitles || ['','',''];
+                
+                if (generatedTitles[0]) {
 
                     return;
                 }
@@ -307,9 +303,8 @@
                     this.generatedTitles = titles;
 
                 } catch (e) {
-                    // log e
 
-                    this.generatedTitles = ['', '', ''];
+                    this.generatedTitles = generatedTitles;
 
                     this.newFundRaiser.titleMode = "write";
 
@@ -354,9 +349,9 @@
 
                         this.$router.push({path: "/raisers/review"});
 
-                    } catch (e) {
+                    } catch (error) {
 
-                        console.error(e.message);
+                        console.error(error);
 
                     }
                 } else {

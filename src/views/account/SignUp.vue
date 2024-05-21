@@ -29,7 +29,7 @@
                                                     <span class="input-group-text px-3">
                                                         <i class="fas fa-user" aria-hidden="true"></i>
                                                     </span>
-                                                    <input class="form-control form-control-lg text-lg" v-model="signUpModel.firstName" required placeholder="Hau'wa" :disabled="loading | undefined" >
+                                                    <input class="form-control form-control-lg text-lg" v-model="signUpModel.firstName" required placeholder="Hau'wa" :disabled="formDisabled" >
                                                 </div>
                                             </div>
                                             <div class="form-group mt-3 col-sm-6">
@@ -40,7 +40,7 @@
                                                     <span class="input-group-text px-3">
                                                         <i class="fas fa-user" aria-hidden="true"></i>
                                                     </span>
-                                                    <input class="form-control form-control-lg text-lg" v-model="signUpModel.lastName" required placeholder="John" :disabled="loading | undefined" >
+                                                    <input class="form-control form-control-lg text-lg" v-model="signUpModel.lastName" required placeholder="John" :disabled="formDisabled" >
                                                 </div>
                                             </div>
                                             <div class="form-group mt-3 col-sm-6">
@@ -51,7 +51,7 @@
                                                     <span class="input-group-text px-3">
                                                         <i class="fas fa-envelope" aria-hidden="true"></i>
                                                     </span>
-                                                    <input class="form-control form-control-lg text-lg" required v-model="signUpModel.email" type="email" placeholder="first.last@donner.africa" :disabled="loading | undefined" >
+                                                    <input class="form-control form-control-lg text-lg" required v-model="signUpModel.email" type="email" placeholder="first.last@donner.africa" :disabled="formDisabled" >
                                                 </div>
                                             </div>
                                             <div class="form-group mt-3 col-sm-6">
@@ -63,12 +63,12 @@
                                                         <span class="" aria-hidden="true">
                                                             <i class="fas fa-phone"></i>
                                                         </span>
-                                                        <select class="form-control form-control-lg text-lg border-0 ms-2" v-model="signUpModel.countryCode" :disabled="loading | undefined" >
+                                                        <select class="form-control form-control-lg text-lg border-0 ms-2" v-model="signUpModel.countryCode" :disabled="formDisabled" >
                                                             <option>+234</option>
                                                         </select>
 
                                                     </span>
-                                                    <input class="form-control form-control-lg text-lg" v-model="signUpModel.phone" required type="tel" max-length="12" placeholder="8107758090" :disabled="loading | undefined" >
+                                                    <input class="form-control form-control-lg text-lg" v-model="signUpModel.phone" required type="tel" max-length="12" placeholder="8107758090" :disabled="formDisabled" >
                                                     <button class="bg-white px-3 mb-0 " type="button" style="border-radius: 0 .5rem .5rem 0; border: solid 1px #141727;">
                                                         🇳🇬
                                                     </button>
@@ -82,7 +82,7 @@
                                                     <span class="input-group-text px-3">
                                                         <i class="fas fa-lock" aria-hidden="true"></i>
                                                     </span>
-                                                    <input class="form-control form-control-lg text-lg" v-model="signUpModel.password" required type="password" placeholder="********" :disabled="loading | undefined" >
+                                                    <input class="form-control form-control-lg text-lg" v-model="signUpModel.password" required type="password" placeholder="********" :disabled="formDisabled" >
                                                 </div>
                                             </div>
                                             <div class="form-group mt-3 col-sm-6">
@@ -93,12 +93,12 @@
                                                     <span class="input-group-text px-3">
                                                         <i class="fas fa-lock" aria-hidden="true"></i>
                                                     </span>
-                                                    <input class="form-control form-control-lg text-lg" v-model="signUpModel.confirmPassword" required type="password" placeholder="********" :disabled="loading | undefined" >
+                                                    <input class="form-control form-control-lg text-lg" v-model="signUpModel.confirmPassword" required type="password" placeholder="********" :disabled="formDisabled" >
                                                 </div>
                                             </div>
                                             <div class="form-group mt-3 mx-2">
                                                 <div class="form-check form-switch">
-                                                    <input class="form-check-input" type="checkbox" checked="true" id="receiveUpdates" v-model="signUpModel.receiveUpdates" :disabled="loading | undefined" >
+                                                    <input class="form-check-input" type="checkbox" checked="true" id="receiveUpdates" v-model="signUpModel.receiveUpdates" :disabled="formDisabled" >
                                                     <label class="form-check-label" for="receiveUpdates">
                                                         Receive raising tips and updates on noteworthy fundraising events from <span class="text-bold text-gradient text-primary">your favorite philanthropy team</span>.
                                                         You can unsubscribe at any time.
@@ -175,10 +175,18 @@
             navigationStore.$state.showNavigationBar = true;
             navigationStore.$state.showFooter = true;
         },
+        computed: {
+            
+            formDisabled() {
+                return this.loading || undefined;
+            }
+        },
         methods: {
 
             async signUp() {
+                
                 if(this.signUpModel.password !== this.signUpModel.confirmPassword) {
+                    
                     this.responseMessage = {
                         html: 'Your passwords do not match. <br/>Confirm your password.',
                         type: 'danger'
@@ -204,9 +212,11 @@
                     
                     const { verified } = user;
                     
-                    AccountService.createVerification({ type: "OTP", channel: "SMS" });
+                    await AccountService.initiateAccountVerification({ });
                     
-                    this.$router.push('/account/verification/');
+                    this.$router.push({
+                        name: "Verification"
+                    });
                     
                 } catch (error) {
 

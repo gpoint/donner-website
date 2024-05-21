@@ -13,7 +13,7 @@ export default {
             case 'Network Error': {
                     notificationStore.toast({
                         message: "You are disconnected... <b> Check your network connection</b>"
-                    })
+                    });
                     
             }
             default:

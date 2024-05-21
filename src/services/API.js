@@ -1,3 +1,4 @@
+/* packages */
 import axios from "axios";
 
 /* errors */
@@ -23,14 +24,17 @@ export default {
 
             const authorizationHeaders = authorizeRequest ? AccountService.getAuthHeader() : {};
 
-            const {data: responseData} = await axios.post(`${apiURL + resource + stringifiedQuery}`, data, {
+            const {data: response} = await axios.post(`${apiURL + resource + stringifiedQuery}`, data, {
                 headers: {
                     ...headers,
                     ...authorizationHeaders
                 }
             });
 
-            return responseData;
+            return {
+                data: response.data,
+                meta: response.meta
+            };
 
         } catch (error) {
 
@@ -42,12 +46,65 @@ export default {
         return;
     },
 
-    put: async (resource, {query, headers}) => {
-        return;
+    put: async (resource, {query, data, headers, authorizeRequest = false}) => {
+
+        let stringifiedQuery = "";
+
+        if (query) {
+            stringifiedQuery = `?${Object.keys(query).reduce((previousValue, currentValue) => `${previousValue}&${currentValue}=${query[currentValue]}`)}`;
+        }
+
+        try {
+
+            const authorizationHeaders = authorizeRequest ? AccountService.getAuthHeader() : {};
+            
+            const {data: response} = await axios.put(`${apiURL + resource + stringifiedQuery}`, data, {
+                headers: {
+                    ...headers,
+                    ...authorizationHeaders
+                }
+            });
+
+            return {
+                data: response.data,
+                meta: response.meta
+            };
+
+        } catch (error) {
+
+            ErrorHandler.handleError(error);
+        }
     },
 
-    patch: async (resource, {query, headers}) => {
-        return;
+    patch: async (resource, {query, data, headers, authorizeRequest = false}) => {
+
+        let stringifiedQuery = "";
+
+        if (query) {
+            stringifiedQuery = `?${Object.keys(query).reduce((previousValue, currentValue) => `${previousValue}&${currentValue}=${query[currentValue]}`)}`;
+        }
+
+        try {
+
+            const authorizationHeaders = authorizeRequest ? AccountService.getAuthHeader() : {};
+
+            
+            const {data: response} = await axios.patch(`${apiURL + resource + stringifiedQuery}`, data, {
+                headers: {
+                    ...headers,
+                    ...authorizationHeaders
+                }
+            });
+
+            return {
+                data: response.data,
+                meta: response.meta
+            };
+
+        } catch (error) {
+
+            ErrorHandler.handleError(error);
+        }
     },
 
     del: async (resource, {query, headers}) => {

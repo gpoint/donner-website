@@ -10,16 +10,11 @@ export const getUserStore = defineStore("user", {
   state: () => ({
     ...user
   }),
-  getters: {
-    isLoggedIn: (state) => {
-      return !!CookieUtility.tasteCookie("authorization");
-    }
-  },
   actions: {
     logout() {
       this.authorization = null;
       localStorage.removeItem("user");
-      CookieUtility.eatCookie("authorization");
+      CookieUtility.chowCookie("authorization");
     }
   }
 });

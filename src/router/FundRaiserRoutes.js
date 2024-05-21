@@ -4,7 +4,8 @@ const FundRaiserRoutes = [
         name: "Create Fundraiser",
         component: () => import("@/views/raisers/Create.vue"),
         meta: {
-            title: "Create a Donner Raiser"
+            title: "Create a Donner Raiser",
+            authorizationRequired: false
         }
     },
     {
