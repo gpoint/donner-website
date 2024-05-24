@@ -1,5 +1,8 @@
-import API from "@/services/API";
+import API from "./API";
 
+import { ErrorHandler } from "@/errors";
+
+/* stores*/
 import { getNewFundRaiserStore } from "@/stores/NewFundRaiserStore";
 import { getNotificationStore } from '@/stores/NotificationStore';
 
@@ -55,31 +58,31 @@ export default {
         }
     },
 
-    async createFundRaiser() {
+    async commitNewFundRaiser() {
+        
         const newFundRaiserIsComplete = await this.get("newFundRaiserIsComplete");
 
         if (!newFundRaiserIsComplete) {
 
-            throw new Error("Your fundraiser cannot be created because it is not complete");
+            throw ErrorHandler.handleError(new Error("Your fundraiser cannot be commited because it is not complete"));
         }
 
         const newFundRaiser = await this.get("newFundRaiser");
+        
+        newFundRaiser.target = `${newFundRaiser.target}`.replaceAll(",", "");
 
         try {
+            
             const response = await API.post("fundraiser", {
                 data: {
                     ...newFundRaiser
-                }
+                },
+                authorizeRequest: true
             });
 
             return response;
-        } catch (error) {
             
-            notificationStore.toast({
-                message: error.message,
-                duration: 5000,
-                textClasses: "text-gradient text-warning"
-            });
+        } catch (error) {
                
             throw error;
         }

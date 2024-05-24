@@ -4,8 +4,11 @@ import { createRouter, createWebHistory } from "vue-router";
 import AccountRoutes from "./AccountRoutes";
 import FundRaiserRoutes from "./FundRaiserRoutes";
 
+/* stores */
+import { getNavigationStore } from "@/stores/NavigationStore";
+
 /* utilities */
-import CookieUtility from "@/utilities/CookieUtility"
+import CookieUtility from "@/utilities/CookieUtility";
 
 //import.meta.env.BASE_URL;
 const history = createWebHistory();
@@ -65,7 +68,20 @@ router.beforeEach((to, from, next) => {
         }
     }
     
+    const navigationDisplay = to.meta.navigationDisplay || {
+        showNavigationBar: true,
+        showFooter: true
+    };
+    
+    const navigationStore = getNavigationStore();
+    
+    navigationStore.$state.showFooter = navigationDisplay.showFooter === undefined ? true : navigationDisplay.showFooter;
+    
+    navigationStore.$state.showNavigationBar = navigationDisplay.showNavigationBar === undefined ? true : navigationDisplay.showNavigationBar;
+    
     next();
+    
+    
 });
 
 export default router;

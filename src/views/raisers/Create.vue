@@ -18,7 +18,7 @@
                         <div class="col-lg-8 d-flex justify-content-center flex-column my-0 my-sm-5">
                             <div class="card card-body blur d-flex justify-content-top px-sm-5 shadow-lg mt-md-5 mt-sm-4 mt-0 py-5 pb-10 pb-sm-5 min-vh-75 rounded-0">
 
-                                <h1 class="text-gradient text-dark mb-0 mt-8 mt-sm-0">{{ isLoggedIn ? `Hi, ${user.name}` : 'Start a successful fundraiser' }} </h1>
+                                <h1 class="text-gradient text-dark mb-0 mt-8 mt-sm-0">{{ isLoggedIn ? `Hi, ${user.fullName}` : 'Start a successful fundraiser' }} </h1>
                                 <h5 class="mb-2 text-gradient text-dark">We are going to make impact together. <span class="text-primary text-gradient">🍀</span> </h5>
                                 <hr class="btn-round bg-gradient-success my-5 opacity-8" style="height: 5px; border-radius: 20px; transition: width 1s" :style="{width: `${(currentStep/7) * 100}%`}">
                                 <div class="col-12" style="height: 45px">
@@ -78,7 +78,7 @@
                                         <h6 class="mb-2 mt-3">Are you doing this on behalf of a registered organization?</h6>
                                         <div class="row pt-3 h-100">
                                             <div class="p-4 col-sm-6 h-100">
-                                                <button class="card card-background card-background-mask-dark move-on-hover border-white border-2" @click="newFundRaiser.type = 'organization'; next()">
+                                                <button class="card card-background card-background-mask-dark move-on-hover border-white border-2" @click="newFundRaiser.type = 'TEAM'; next()">
                                                     <div class="card-body pt-3 text-start">
                                                         <h4 class="text-white">I Have A Team</h4>
                                                         <p>You are fundraising on behalf of an organization registered in {{ newFundRaiser.country }}. </p>
@@ -86,7 +86,7 @@
                                                 </button>
                                             </div>
                                             <div class="p-4 col-sm-6 h-100">
-                                                <button class="card card-background card-background-mask-primary move-on-hover border-white border-2" @click="newFundRaiser.type = 'personal'; next()">
+                                                <button class="card card-background card-background-mask-primary move-on-hover border-white border-2" @click="newFundRaiser.type = 'PERSONAL'; next()">
                                                     <div class="card-body pt-3 text-start">
                                                         <h4 class="text-white">It's Personal</h4>
                                                         <p>You are fundraising to support your community, family, or personal dream. </p>
@@ -148,7 +148,7 @@
                                                 </a>
                                             </div>
                                             <div class="form-group">
-                                                <BaseButton :disabled="newFundRaiser.title ? undefined : true" class="btn btn-primary float-end mt-3" nativeType="submit">
+                                                <BaseButton :disabled="newFundRaiser.title ? undefined : true" :loading="loading" class="btn btn-primary float-end mt-3" nativeType="submit">
                                                     Create
                                                 </BaseButton>
                                             </div>
@@ -192,6 +192,7 @@
         data() {
             return {
                 user: null,
+                loading: false,
                 categories: [],
                 currentStep: 1,
                 isLoggedIn: false,
@@ -208,17 +209,7 @@
             this.currentStep = await FundRaiserService.get('createFundRaiserCurrentStep') || 1;
             
             this.isLoggedIn = await UserService.get("isLoggedIn");
-            
-            await NavigationService.set('showNavigationBar', false);
 
-            await NavigationService.set('showFooter', false);
-
-        },
-        beforeUnmount() {
-
-            NavigationService.set('showNavigationBar', true);
-
-            NavigationService.set('showFooter', true);
         },
         async mounted() {
 
@@ -322,6 +313,7 @@
             },
 
             back() {
+                
                 this.currentStep = this.currentStep - 1 || 1;
 
                 FundRaiserService.set('createFundRaiserCurrentStep', this.currentStep);
@@ -329,6 +321,7 @@
                 FundRaiserService.set("newFundRaiser", {...this.newFundRaiser});
 
                 FundRaiserService.set("newFundRaiserIsComplete", false);
+                
             },
 
             async create() {
@@ -342,18 +335,9 @@
                 await FundRaiserService.set("newFundRaiser", {...this.newFundRaiser});
 
                 if (this.isLoggedIn) {
+                    
+                    this.$router.push({path: "/raisers/review"});
 
-                    try {
-
-                        await FundRaiserService.commitNewFundRaiser();
-
-                        this.$router.push({path: "/raisers/review"});
-
-                    } catch (error) {
-
-                        console.error(error);
-
-                    }
                 } else {
 
                     this.$router.push({path: "/account/sign-up"});

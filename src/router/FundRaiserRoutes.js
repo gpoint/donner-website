@@ -5,7 +5,11 @@ const FundRaiserRoutes = [
         component: () => import("@/views/raisers/Create.vue"),
         meta: {
             title: "Create a Donner Raiser",
-            authorizationRequired: false
+            authorizationRequired: false,
+            navigationDisplay: {
+                showNavigationBar: false,
+                showFooter: false
+            }
         }
     },
     {
@@ -14,7 +18,11 @@ const FundRaiserRoutes = [
         component: () => import("@/views/raisers/Review.vue"),
         meta: {
             title: "Review your Raiser",
-            authorizationRequired: true
+            authorizationRequired: true,
+            navigationDisplay: {
+                showNavigationBar: false,
+                showFooter: false
+            }
         }
     }
 ];

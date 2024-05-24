@@ -4,7 +4,11 @@ const AccountRoutes = [
         name: "Sign Up",
         component: () => import("../views/account/SignUp.vue"),
         meta: {
-            title: "Sign up to publish your fundraiser"
+            title: "Sign up to publish your fundraiser",
+            navigationDisplay: {
+                showNavigationBar: false,
+                showFooter: false
+            }
         }
     },
     {
@@ -12,7 +16,11 @@ const AccountRoutes = [
         name: "Login",
         component: () => import("../views/account/Login.vue"),
         meta: {
-            title: "Login to manage your fundraiser"
+            title: "Login to manage your fundraiser",
+            navigationDisplay: {
+                showNavigationBar: false,
+                showFooter: false
+            }
         }
     },
     {
@@ -20,7 +28,11 @@ const AccountRoutes = [
         name: "Verification",
         component: () => import("../views/account/Verification.vue"),
         meta: {
-            title: "Verify your account"
+            title: "Verify your account",
+            navigationDisplay: {
+                showNavigationBar: false,
+                showFooter: false
+            }
         }
     },
     {
@@ -28,7 +40,11 @@ const AccountRoutes = [
         name: "Password Reset",
         component: () => import("../views/account/password-reset/Index.vue"),
         meta: {
-            title: "Reset your password"
+            title: "Reset your password",
+            navigationDisplay: {
+                showNavigationBar: false,
+                showFooter: false
+            }
         }
     },
     {
@@ -36,7 +52,11 @@ const AccountRoutes = [
         name: "Complete Password Reset",
         component: () => import("../views/account/password-reset/Complete.vue"),
         meta: {
-            title: "Secure your account"
+            title: "Secure your account",
+            navigationDisplay: {
+                showNavigationBar: false,
+                showFooter: false
+            }
         }
     }
 ];

@@ -1,5 +1,5 @@
 <template>
-    <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-white z-index-3 py-3" :class="display">
+    <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-white z-index-3 py-3" style="display: none !important;" ref="navbar">
         <div class="container">
             <a href="/" class="navbar-brand" rel="tooltip" data-placement="bottom">
                 <img height="40" src="/img/logo.png" alt="C-STEMP">
@@ -94,11 +94,6 @@
             },
             show() {
                 return !this.menuCollapsed ? 'show' : '';
-            },
-            display() {
-                const navigationStore = getNavigationStore();
-
-                return navigationStore.$state.showNavigationBar ? "d-block" : "d-none";
             }
         },
         methods: {
@@ -112,7 +107,17 @@
         mounted() {
 
             const html = document.documentElement;
+            
             html.scrollTop -= html.scrollTop;
+            
+            const navigationStore = getNavigationStore();
+            
+            this.$refs.navbar.style.display = navigationStore.$state.showNavigationBar ? "block" : "none";
+
+            navigationStore.$subscribe((mutation, state) => {
+                
+                this.$refs.navbar.style.display = state.showNavigationBar ? "block" : "none";
+            });
         }
     };
 </script>

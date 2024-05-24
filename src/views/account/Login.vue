@@ -138,11 +138,9 @@
                     
                 } catch (error) {
                     
-                    console.log(error);
+                    const notificationStore = getNotificationStore();
                     
-//                    const notificationStore = getNotificationStore();
-//                    
-//                    notificationStore.toast(error.getToast());
+                    notificationStore.toast(error.getToast());
                 }
                     
                 this.loading = false;

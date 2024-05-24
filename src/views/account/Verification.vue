@@ -92,10 +92,6 @@
             };
         },
         beforeMount() {
-            const navigationStore = getNavigationStore();
-
-            navigationStore.$state.showNavigationBar = false;
-            navigationStore.$state.showFooter = false;
             
             const preAuthorized = CookieUtility.nibble("preAuthorization");
             
@@ -104,12 +100,6 @@
                 this.$router.push("/account/login");
             }
 
-        },
-        beforeUnmount() {
-            const navigationStore = getNavigationStore();
-
-            navigationStore.$state.showNavigationBar = true;
-            navigationStore.$state.showFooter = true;
         },
         computed: {
             formDisabled() {

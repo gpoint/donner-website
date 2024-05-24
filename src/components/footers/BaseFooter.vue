@@ -1,6 +1,6 @@
 <template>
     <!-- ---- START FOOTER 2 dark w/ bg image 5 cols & subscribe area & social---- -->
-    <footer class="footer py-7 position-relative bg-gradient-primary overflow-hidden" :class="display">
+    <footer class="footer py-7 position-relative bg-gradient-primary overflow-hidden" style="display: none !important;" ref="footer">
         <img src="/img/shapes/waves-white.svg" alt="pattern-lines" class="position-absolute start-0 top-0 w-100 opacity-4">
         <div class="container position-relative mt-5">
             <div class="row d-none">
@@ -168,14 +168,18 @@
     
     export default {
         computed: {
-            display(){
-                const navigationStore = getNavigationStore();
-                
-                return navigationStore.$state.showFooter ? "d-block" : "d-none";
-            }
         },
         mounted() {
             attachTranslator();
+            
+            const navigationStore = getNavigationStore();
+            
+            this.$refs.footer.style.display = navigationStore.$state.showFooter ? "block" : "none";
+
+            navigationStore.$subscribe((mutation, state) => {
+                
+                this.$refs.footer.style.display = state.showFooter ? "block" : "none";
+            });
         }
 
     }

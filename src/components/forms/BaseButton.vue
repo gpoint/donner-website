@@ -110,62 +110,10 @@
         }
     };
 </script>
-<style>
+<style scoped>
     .loading {
         cursor: wait !important;
         opacity: 0.9;
-    }
-    .lds-ripple,
-    .lds-ripple div {
-        box-sizing: border-box;
-        text-align: center !important;
-    }
-    .lds-ripple {
-        display: inline-block;
-        position: relative;
-        width: 30px;
-        height: 30px;
-        justify-content: center;
-    }
-    .lds-ripple div {
-        position: absolute;
-        border: 4px solid currentColor;
-        opacity: 0;
-        border-radius: 50%;
-        animation: lds-ripple 4s cubic-bezier(0, 0.2, 0.8, 1) infinite;
-    }
-    .lds-ripple div:nth-child(2) {
-        animation-delay: 2s;
-    }
-    @keyframes lds-ripple {
-        0% {
-            top: 12px;
-            left: 12px;
-            width: 10px;
-            height: 10px;
-            opacity: 0;
-        }
-        4.9% {
-            top: 12px;
-            left: 12px;
-            width: 10px;
-            height: 10px;
-            opacity: 0;
-        }
-        5% {
-            top: 12px;
-            left: 12px;
-            width: 10px;
-            height: 10px;
-            opacity: 1;
-        }
-        100% {
-            top: 0;
-            left: 0px;
-            width: 34px;
-            height: 34px;
-            opacity: 0;
-        }
     }
 </style>
 
