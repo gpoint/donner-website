@@ -21,6 +21,10 @@ const getters = {
 
     newFundRaiserIsComplete: (value) => {
         return JSON.parse(window.localStorage.getItem('newFundRaiserIsComplete') || 'false');
+    },
+    
+    draftFundRaiser: () => {
+        return JSON.parse(window.localStorage.getItem('draftFundRaiser'));
     }
 
 };
@@ -37,6 +41,29 @@ const setters = {
 
     newFundRaiser: async (value) => {
         newFundRaiserStore.commit(value);
+    },
+
+    draftFundRaiser: (value) => {
+        window.localStorage.setItem('draftFundRaiser', JSON.stringify(value));
+    }
+};
+
+const clearers = {
+
+    createFundRaiserCurrentStep: () => {
+        window.localStorage.removeItem('createFundRaiserCurrentStep');
+    },
+
+    newFundRaiserIsComplete: () => {
+        window.localStorage.removeItem('newFundRaiserIsComplete');
+    },
+
+    newFundRaiser: async () => {
+        newFundRaiserStore.clear();
+    },
+
+    draftFundRaiser: () => {
+        window.localStorage.removeItem('draftFundRaiser');
     }
 };
 
@@ -57,30 +84,47 @@ export default {
             throw new Error(`Unable to set ${name}`);
         }
     },
-
-    async commitNewFundRaiser() {
-        
-        const newFundRaiserIsComplete = await this.get("newFundRaiserIsComplete");
-
-        if (!newFundRaiserIsComplete) {
-
-            throw ErrorHandler.handleError(new Error("Your fundraiser cannot be commited because it is not complete"));
+    
+    async clear(name) {
+        try {
+            clearers[name]();
+        } catch (e) {
+            throw new Error(`Unable to clear ${name}`);
         }
-
-        const newFundRaiser = await this.get("newFundRaiser");
+    },
+    
+    async getFundRaiserById(fundRaiserId) {
         
-        newFundRaiser.target = `${newFundRaiser.target}`.replaceAll(",", "");
-
         try {
             
-            const response = await API.post("fundraiser", {
+            const {data: fundRaiser} = await API.get(`fundraisers/${fundRaiserId}`);
+            
+            return fundRaiser;
+            
+        }catch(error) {
+            
+            throw error;
+        }
+    },
+
+    async commitNewFundRaiser(newFundRaiser) {
+        
+        try {
+            
+            const {data: fundRaiser} = await API.post("fundraisers", {
                 data: {
                     ...newFundRaiser
                 },
                 authorizeRequest: true
             });
+            
+            await this.set("draftFundRaiser", fundRaiser);
+            
+            this.clear("newFundRaiser");
+            this.clear("newFundRaiserIsComplete");
+            this.clear("createFundRaiserCurrentStep");
 
-            return response;
+            return fundRaiser;
             
         } catch (error) {
                

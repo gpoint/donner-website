@@ -71,6 +71,7 @@
 
     /* services */
     import AccountService from "@/services/AccountService";
+    import NavigationService from "@/services/NavigationService";
 
     /* stores */
     import { getNavigationStore } from "@/stores/NavigationStore";
@@ -159,18 +160,31 @@
 
                     if (data) {
                         
-                        // if any,
-                        // save complete raiser
-                        this.$router.push("/raisers/review");
+                        const postAuthenticationPath = await NavigationService.get("postAuthenticationPath");
                         
-                        // else
-                        // go to /account/me
+                        console.log(postAuthenticationPath);
+                        
+                        if (postAuthenticationPath) {
+                             
+                            this.$router.push(postAuthenticationPath);
+                        
+                        } else {
+                            
+                            this.$router.push("/");
+                            
+                            NavigationService.clear("postAuthenticationPath");
+                        }
+                        
                     }
                 } catch (error) {
-
-                    const notificationStore = getNotificationStore();
                     
-                    notificationStore.toast(error.getToast());
+                    if(error.getToast) {
+
+                        const notificationStore = getNotificationStore();
+
+                        notificationStore.toast(error.getToast());
+                    
+                    } else console.log(error);
                 }
 
                 this.loading = false;

@@ -24,6 +24,15 @@ const FundRaiserRoutes = [
                 showFooter: false
             }
         }
+    },
+    {
+        path: "/raisers/:urlPath",
+        name: "View Fundraiser",
+        component: () => import("@/views/raisers/View.vue"),
+        meta: {
+            title: "Donate to this raiser",
+            authorizationRequired: false,
+        }
     }
 ];
 

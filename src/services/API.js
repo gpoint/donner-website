@@ -43,7 +43,33 @@ export default {
     },
 
     get: async (resource, {query, headers}) => {
-        return;
+        
+        let stringifiedQuery = "";
+
+        if (query) {
+            stringifiedQuery = `?${Object.keys(query).reduce((previousValue, currentValue) => `${previousValue}&${currentValue}=${query[currentValue]}`)}`;
+        }
+
+        try {
+
+            const authorizationHeaders = authorizeRequest ? AccountService.getAuthHeader() : {};
+            
+            const {data: response} = await axios.get(`${apiURL + resource + stringifiedQuery}`, {
+                headers: {
+                    ...headers,
+                    ...authorizationHeaders
+                }
+            });
+
+            return {
+                data: response.data,
+                meta: response.meta
+            };
+
+        } catch (error) {
+
+            ErrorHandler.handleError(error);
+        }
     },
 
     put: async (resource, {query, data, headers, authorizeRequest = false}) => {

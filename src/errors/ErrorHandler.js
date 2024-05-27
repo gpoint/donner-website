@@ -9,7 +9,7 @@ export default {
         
         const notificationStore = getNotificationStore();
 
-        switch(error.type) {
+        switch(error.message) {
             case 'Network Error': {
                     notificationStore.toast({
                         message: "You are disconnected... <b> Check your network connection</b>"

@@ -45,7 +45,7 @@
                                                     Country
                                                 </label>
                                                 <select class="form-control form-control-lg mx-2" v-model="newFundRaiser.country">
-                                                    <option selected>Nigeria</option>
+                                                    <option value="Nigeria">Nigeria</option>
                                                 </select>
                                             </div>
                                             <div class="form-group mt-3 col-sm-7">
@@ -56,7 +56,7 @@
                                                     <span class="input-group-text px-3"><i class="fas" aria-hidden="true">₦</i></span>
                                                     <input class="form-control form-control-lg" required v-model="newFundRaiser.target" @input="formatAmount" placeholder="Your dream amount" >
                                                     <button type="button" class="bg-white px-3 mb-0 " style="border-radius: 0 .5rem .5rem 0; border: solid 1px #195706;">
-                                                        <i class="badge bg-gradient-dark text-white text-bold" aria-hidden="true">NGN</i>
+                                                        <i class="badge bg-gradient-dark text-white text-bold" aria-hidden="true">{{ newFundRaiser.currency }}</i>
                                                     </button>
                                                 </div>
                                             </div>
@@ -176,11 +176,14 @@
     import SDGSelect from '@/components/forms/SDGSelect.vue';
     import BaseButton from "@/components/forms/BaseButton.vue"
 
-            /* services */
+    /* services */
     import ConfigurationService from '@/services/ConfigurationService';
     import FundRaiserService from '@/services/FundRaiserService';
     import NavigationService from "@/services/NavigationService";
     import UserService  from "@/services/UserService";
+    
+    /* stores */
+    import { getNotificationStore } from "@/stores/NotificationStore";
 
     export default {
         components: {
@@ -203,7 +206,7 @@
         async beforeMount() {
 
             this.newFundRaiser = await FundRaiserService.get("newFundRaiser");
-
+            
             this.categories = ConfigurationService.get('fundRaiserCategories');
 
             this.currentStep = await FundRaiserService.get('createFundRaiserCurrentStep') || 1;
@@ -217,10 +220,8 @@
                 ...await UserService.get('user')
             };
             
-            if (this.currentStep == 6 && this.newFundRaiser.titleMode === "pick") {
-                
-                this.newFundRaiser.titleMode = "write";
-            }
+            this.newFundRaiser.titleMode = "write";
+            
         },
         computed: {
 
@@ -331,16 +332,36 @@
                 this.$Progress.start();
 
                 await FundRaiserService.set("newFundRaiserIsComplete", true);
+                
+                const newFundRaiser = JSON.parse(JSON.stringify(this.newFundRaiser));
+                        
+                newFundRaiser.target = `${newFundRaiser.target}`.replaceAll(",", "");
 
-                await FundRaiserService.set("newFundRaiser", {...this.newFundRaiser});
+                await FundRaiserService.set("newFundRaiser", {...newFundRaiser});
 
-                if (this.isLoggedIn) {
+                if (!this.isLoggedIn) {
+
+                    NavigationService.set("postAuthenticationPath", "/raisers/create");
+
+                   return this.$router.push("/account/sign-up");
+
+                }
                     
-                    this.$router.push({path: "/raisers/review"});
+                try {
 
-                } else {
+                    await FundRaiserService.commitNewFundRaiser(newFundRaiser);
+                    
+                    this.$router.push("/raisers/review");
 
-                    this.$router.push({path: "/account/sign-up"});
+                } catch (error) {
+
+                    if(error.getToast) {
+
+                        const notificationStore = getNotificationStore();
+
+                        notificationStore.toast(error.getToast());
+
+                    } else console.log(error);
                 }
 
                 this.loading = false;
@@ -357,8 +378,21 @@
     div.ql-container.ql-bubble{
         overflow: scroll scroll;
         position: absolute;
-        width: 80%;
+        width: 90%;
         height: 195px;
+    }
+    
+    @media(min-width: 722px) {
+        
+        div.ql-container.ql-bubble{
+            width: 85%;
+        }
+    }
+    @media(min-width: 570px) {
+        
+        div.ql-container.ql-bubble{
+            width: 80%;
+        }
     }
 
     .form-section {

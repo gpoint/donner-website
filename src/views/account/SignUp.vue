@@ -163,18 +163,6 @@
                 }
             };
         },
-        beforeMount() {
-            const navigationStore = getNavigationStore();
-
-            navigationStore.$state.showNavigationBar = false;
-            navigationStore.$state.showFooter = false;
-        },
-        beforeUnmount() {
-            const navigationStore = getNavigationStore();
-
-            navigationStore.$state.showNavigationBar = true;
-            navigationStore.$state.showFooter = true;
-        },
         computed: {
             
             formDisabled() {

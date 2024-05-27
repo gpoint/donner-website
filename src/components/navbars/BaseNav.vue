@@ -13,63 +13,63 @@
             </button>
             <div class="collapse navbar-collapse w-100 pt-3 pb-2 py-lg-0" :class="show" id="navigation">
                 <ul class="navbar-nav navbar-nav-hover mx-auto">
-                    <!-- <li class="nav-item mx-2">
-                        <RouterLink to="/" class=" nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center" role="button">
-                            <strong v-if="isActiveRoute('home')" class="text-gradient bg-gradient-primary">Home</strong>
-                            <span v-else>Home</span>
-                        </RouterLink>
-                    </li> -->
-                    <!-- <li class="nav-item mx-2">
-                        <RouterLink to="/about" class=" nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center" role="button">
-                            <strong v-if="isActiveRoute('about')" class="text-gradient bg-gradient-primary">About</strong>
-                            <span v-else>About Us</span>
-                        </RouterLink>
-                    </li> -->
+                    <li class="nav-item mx-2">
+                    <RouterLink to="/" class=" nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center" role="button">
+                        <strong v-if="isActiveRoute('home')" class="text-gradient bg-gradient-primary">Home</strong>
+                        <span v-else>Home</span>
+                    </RouterLink>
+                    </li> 
+                    <li class="nav-item mx-2">
+                    <RouterLink to="/about" class=" nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center" role="button">
+                        <strong v-if="isActiveRoute('about')" class="text-gradient bg-gradient-primary">About</strong>
+                        <span v-else>About Us</span>
+                    </RouterLink>
+                    </li> 
 
-                    <!-- <li class="nav-item mx-2">
-                        <RouterLink to="/careers" class=" nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center" role="button">
-                            <strong v-if="isActiveRoute('careers')" class="text-gradient bg-gradient-primary">Careers</strong>
-                            <span v-else>Careers</span>
-                        </RouterLink>
-                    </li> -->
-                    <!-- <li class="nav-item mx-2">
-                        <RouterLink to="/projects" class=" nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center" role="button">
-                            <strong v-if="isActiveRoute('projects')" class="text-gradient bg-gradient-primary">Projects</strong>
-                            <span v-else>Projects</span>
-                        </RouterLink>
-                    </li> -->
-                    <!-- <li class="nav-item mx-2">
-                        <RouterLink to="/resources" class=" nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center" role="button">
-                            <strong v-if="isActiveRoute('resources')" class="text-gradient bg-gradient-primary">Resources</strong>
-                            <span v-else>Resources</span>
-                        </RouterLink>
+                    <li class="nav-item mx-2">
+                    <RouterLink to="/careers" class=" nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center" role="button">
+                        <strong v-if="isActiveRoute('careers')" class="text-gradient bg-gradient-primary">Careers</strong>
+                        <span v-else>Careers</span>
+                    </RouterLink>
+                    </li> 
+                    <li class="nav-item mx-2">
+                    <RouterLink to="/projects" class=" nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center" role="button">
+                        <strong v-if="isActiveRoute('projects')" class="text-gradient bg-gradient-primary">Projects</strong>
+                        <span v-else>Projects</span>
+                    </RouterLink>
+                    </li> 
+                    <li class="nav-item mx-2">
+                    <RouterLink to="/resources" class=" nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center" role="button">
+                        <strong v-if="isActiveRoute('resources')" class="text-gradient bg-gradient-primary">Resources</strong>
+                        <span v-else>Resources</span>
+                    </RouterLink>
                     </li>
                     <li class="nav-item mx-2">
-                        <RouterLink to="/volunteer" class=" nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center" role="button">
-                            <strong v-if="isActiveRoute('volunteer')" class="text-gradient bg-gradient-primary">Volunteer</strong>
-                            <span v-else>Volunteer</span>
-                        </RouterLink>
-                    </li> -->
-                    <!-- <li class="nav-item mx-2">
-                        <RouterLink to="/contact" class=" nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center" role="button">
-                            <strong v-if="isActiveRoute('contact')" class="text-gradient bg-gradient-primary">Contact Us</strong>
-                            <span v-else>Contact Us</span>
-                        </RouterLink>
-                    </li> -->
+                    <RouterLink to="/volunteer" class=" nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center" role="button">
+                        <strong v-if="isActiveRoute('volunteer')" class="text-gradient bg-gradient-primary">Volunteer</strong>
+                        <span v-else>Volunteer</span>
+                    </RouterLink>
+                    </li> 
+                    <li class="nav-item mx-2">
+                    <RouterLink to="/contact" class=" nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center" role="button">
+                        <strong v-if="isActiveRoute('contact')" class="text-gradient bg-gradient-primary">Contact Us</strong>
+                        <span v-else>Contact Us</span>
+                    </RouterLink>
+                    </li> 
 
-                     <li class="nav-item mx-2 d-lg-none d-block">
-                        <RouterLink to="/raisers/create" class=" nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center" role="button">
-                            <strong class="text-gradient bg-gradient-primary">Create a Raiser</strong>
-                        </RouterLink>
+                    <li class="nav-item mx-2 d-lg-none d-block">
+                    <RouterLink to="/raisers/create" class=" nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center" role="button">
+                        <strong class="text-gradient bg-gradient-primary">Create a Raiser</strong>
+                    </RouterLink>
                     </li> 
 
                 </ul>
 
                 <ul class="navbar-nav d-lg-block d-none">
-                     <li class="nav-item">
-                        <RouterLink to="/raisers/create" class="btn btn-sm bg-gradient-primary btn-round mb-0 me-1" role="button">
-                            Create a Raiser
-                        </RouterLink>
+                    <li class="nav-item">
+                    <RouterLink to="/raisers/create" class="btn btn-sm bg-gradient-primary btn-round mb-0 me-1" role="button">
+                        Create a Raiser
+                    </RouterLink>
                     </li> 
                 </ul>
             </div>
@@ -107,15 +107,15 @@
         mounted() {
 
             const html = document.documentElement;
-            
+
             html.scrollTop -= html.scrollTop;
-            
+
             const navigationStore = getNavigationStore();
-            
+
             this.$refs.navbar.style.display = navigationStore.$state.showNavigationBar ? "block" : "none";
 
             navigationStore.$subscribe((mutation, state) => {
-                
+
                 this.$refs.navbar.style.display = state.showNavigationBar ? "block" : "none";
             });
         }

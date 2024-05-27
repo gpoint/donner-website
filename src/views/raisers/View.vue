@@ -56,7 +56,7 @@
         <!-- <base-footer></base-footer> -->
 
         <modal v-model:show="show" body-classes="p-0" modal-classes="modal-lg">
-            <div class="card bg-transparent p-3">
+            <div class="card bg-transparent p-3 modal-fade-in">
                 <button @click="show = false"
                     class="position-absolute end-0 me-4 mt-1 btn btn-sm  text-primary bg-gradient-light px-2 py-1">
                     <i class="fa fa-times" style="font-size: 16px"></i>
@@ -68,11 +68,11 @@
                             <div class="row">
                                 <div class="col-6">
                                     <button class="btn w-100 px-2 " :class="monthly ? 'bg-white' : 'bg-gradient-primary'"
-                                        @click="monthly = false; payment_plan = undefined">One Time</button>
+                                        @click="monthly = false; payment_plan = undefined">Donate</button>
                                 </div>
                                 <div class="col-6">
                                     <button class="btn w-100 px-2 " :class="monthly ? 'bg-gradient-primary' : 'bg-white'"
-                                        @click="monthly = true; amount = undefined">Monthly</button>
+                                        @click="monthly = true; amount = undefined">Commit</button>
                                 </div>
                             </div>
                             <div class="row mt-3">
@@ -185,8 +185,7 @@
                                             <div class="form-group mb-3">
                                                 <label>Which causes do you wish to fund? <span
                                                         class="text-primary">*</span></label>
-                                                <cause-select v-model:tags="causes"></cause-select>
-                                            </div>
+                                             </div>
                                             <div class="form-group mb-3">
                                                 <label>Comments</label>
                                                 <textarea type="tel" class="form-control form-control-alternative"
@@ -263,19 +262,13 @@
 </template>
 
 <script>
-import BaseNav from '../components/navbars/BaseNav.vue';
-import BaseFooter from '../components/footers/BaseFooter.vue';
-import Modal from '../components/modals/Modal.vue'
-import SubscribeModal from '../components/modals/SubscribeModal.vue'
-import CauseSelect from '../components/CauseSelect.vue'
+import Modal from '@/components/modals/Modal.vue'
+import SubscribeModal from '@/components/modals/SubscribeModal.vue'
 
 export default {
     components: {
-        BaseNav,
-        BaseFooter,
         Modal,
-        SubscribeModal,
-        CauseSelect,
+        SubscribeModal
     },
     data() {
         return {
@@ -391,3 +384,22 @@ export default {
 
 }
 </script>
+
+<style>
+    .modal-fade-in {
+        
+        opacity: 0.7;
+        transform: scale(0.8);
+        
+        transition-property: all;
+        transition-duration: 4s;
+        transition-timing-function: ease-in-out;
+        transition-delay: 0s;
+    }
+    
+    .modal.show .modal-fade-in {
+        
+        opacity: 1;
+        transform: scale(1);
+    }
+</style>

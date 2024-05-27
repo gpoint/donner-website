@@ -93,7 +93,7 @@ export default {
     },
     methods: {
         addTag() {
-            if (this.selectedSDG && !this.tags.some(tag => tag === this.selectedSDG)) {
+            if (this.selectedSDG) {
                 this.tags.push(this.selectedSDG);
             }
             this.selectedSDG = 0;

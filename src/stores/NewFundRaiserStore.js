@@ -18,18 +18,44 @@ const newFundRaiserBaseModel = {
 
 const stringifiedNewFundRaiser = localStorage.getItem("newFundRaiser");
 
-const newFundRaiser = !!stringifiedNewFundRaiser ? {...newFundRaiserBaseModel, ...JSON.parse(stringifiedNewFundRaiser)} : newFundRaiserBaseModel;
+let newFundRaiser = newFundRaiserBaseModel;
+
+if (stringifiedNewFundRaiser) {
+
+    newFundRaiser = {
+        ...newFundRaiserBaseModel,
+        ...JSON.parse(stringifiedNewFundRaiser)
+    };
+
+}
 
 export const getNewFundRaiserStore = defineStore("newFundRaiser", {
     state: () => ({
             newFundRaiser
         }),
     actions: {
-        commit (value) {
+        commit(value) {
 
             this.newFundRaiser = value;
 
             localStorage.setItem("newFundRaiser", JSON.stringify(this.newFundRaiser));
+        },
+        clear() {
+
+            this.newFundRaiser = {
+                category: '',
+                subCategory: '',
+                title: '',
+                story: '',
+                country: initialCountry,
+                currency: initialCurrency,
+                titleMode: 'write',
+                goal: '',
+                target: '',
+                sdgs: []
+            };
+            
+            localStorage.removeItem("newFundRaiser");
         }
     }
 });

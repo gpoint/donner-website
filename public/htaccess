@@ -1,0 +1,32 @@
+
+
+<FilesMatch "(\.(bak|config|dist|fla|inc|ini|log|psd|sh|sql|swp|php|PHP))$">
+    ## Apache 2.2
+    Order allow,deny
+    Deny from all
+    Satisfy All
+
+    ## Apache 2.4
+    # Require all denied
+</FilesMatch>
+
+
+<Files index.html>
+    Order Allow,Deny
+    Allow from all
+</Files>
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+	
+	RewriteCond %{HTTPS} !=on
+	RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301,NE]
+	#Header always set Content-Security-Policy "upgrade-insecure-requests;"
+
+    # Send would-be 404 requests to Craft
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_URI} !^/(favicon\.ico|apple-touch-icon.*\.png)$ [NC]
+    RewriteRule (.+) index.html?p=$1 [QSA,L]
+    
+</IfModule>

@@ -2,7 +2,7 @@ export default {
 
     formatAmount: (stringValue) => {
         // Remove non-numeric characters from input value
-        const value = parseFloat(stringValue.replace(/[^\d.]/g, ''));
+        const value = parseFloat(`${stringValue}`.replace(/[^\d.]/g, ''));
 
         let amount;
 
@@ -13,7 +13,11 @@ export default {
             if (amount > 100000000000) {
             
                 amount = 100000000000;
+            }
             
+            if(amount < 1000) {
+                
+                amount = 1000;
             }
             
         } else {
