@@ -25,24 +25,6 @@
                         </div>
                         <div class="col-lg-5 ps-5 pe-0 d-none d-md-flex">
                             <div class="row">
-                                <div class="col-md-4 col-6">
-                                    <img class="w-100 border-radius-lg shadow" src="/img/projects/base/training5.jpg" alt=""
-                                        style="height: 225px; object-fit: cover;">
-                                    <img class="w-100 border-radius-lg shadow mt-4" src="/img/projects/base/training1.jpg"
-                                        alt="" style="height: 225px; object-fit: cover;">
-                                </div>
-                                <div class="col-md-4 col-6">
-                                    <img class="w-100 border-radius-lg shadow mt-5" src="/img/projects/base/training2.jpg"
-                                        alt="" style="height: 225px; object-fit: cover;">
-                                    <img class="w-100 border-radius-lg shadow mt-4" src="/img/projects/base/training3.jpg"
-                                        alt="" style="height: 225px; object-fit: cover;">
-                                </div>
-                                <div class="col-md-4 col-6">
-                                    <img class="w-100 border-radius-lg shadow mt-3" src="/img/projects/base/training4.jpg"
-                                        alt="" style="height: 225px; object-fit: cover;">
-                                    <img class="w-100 border-radius-lg shadow mt-4" src="/img/projects/base/training6.jpg"
-                                        alt="" style="height: 225px; object-fit: cover;">
-                                </div>
                             </div>
                         </div>
                     </div>
