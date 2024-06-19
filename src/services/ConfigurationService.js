@@ -1,6 +1,6 @@
 const configurations = {
     baseURL: "https://donner.africa/",
-    apiURL: "https://e735-197-210-85-90.ngrok-free.app/",
+    apiURL: "https://holy-finch-violently.ngrok-free.app/",
     fundRaiserCategories: [
         {
             "name": "Health",
