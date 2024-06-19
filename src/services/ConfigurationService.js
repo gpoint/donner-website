@@ -1,6 +1,6 @@
 const configurations = {
     baseURL: "https://donner.africa/",
-    apiURL: "http://localhost:8000/",
+    apiURL: "https://e735-197-210-85-90.ngrok-free.app/",
     fundRaiserCategories: [
         {
             "name": "Health",

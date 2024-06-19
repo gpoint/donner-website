@@ -13,19 +13,6 @@ const FundRaiserRoutes = [
         }
     },
     {
-        path: "/raisers/review",
-        name: "Review Fundraiser",
-        component: () => import("@/views/raisers/Review.vue"),
-        meta: {
-            title: "Review your Raiser",
-            authorizationRequired: true,
-            navigationDisplay: {
-                showNavigationBar: false,
-                showFooter: false
-            }
-        }
-    },
-    {
         path: "/raisers/:urlPath",
         name: "View Fundraiser",
         component: () => import("@/views/raisers/View.vue"),

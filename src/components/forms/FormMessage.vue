@@ -26,6 +26,10 @@ export default {
         closeable: {
             type: Boolean,
             default: true
+        },
+        autoCloseDuration: {
+            type: Number,
+            default: 1500
         }
     },
     emits: ['update:html', 'update:type'],
@@ -71,6 +75,14 @@ export default {
                 default:
                     return "#fff";
             }
+        }
+    },
+    updated() {
+        if(this.autoCloseDuration) {
+            setTimeout(() => {
+                this.$emit('update:html', '');
+                this.$emit('update:type', '');
+            }, this.autoCloseDuration);
         }
     },
     methods: {

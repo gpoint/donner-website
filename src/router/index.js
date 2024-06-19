@@ -3,6 +3,7 @@ import { createRouter, createWebHistory } from "vue-router";
 /* routes */
 import AccountRoutes from "./AccountRoutes";
 import FundRaiserRoutes from "./FundRaiserRoutes";
+import UserRoutes from "./UserRoutes";
 
 /* stores */
 import { getNavigationStore } from "@/stores/NavigationStore";
@@ -30,7 +31,9 @@ const router = createRouter({
         
         ...FundRaiserRoutes,
         
-        { path: '/:pathMatch(.*)*', name: 'not-found', component: import("../views/errors/NotFoundView.vue") }
+        ...UserRoutes,
+        
+        { path: '/:pathMatch(.*)*', name: 'not-found', component: () => import("../views/errors/NotFound.vue") }
     ]
 });
 
@@ -41,7 +44,7 @@ router.beforeEach((to, from, next) => {
 
         AccountService.logUserOut();
 
-        next("/login");
+        next("/account/login");
     }
     
     const {title} = to.meta;
@@ -58,7 +61,8 @@ router.beforeEach((to, from, next) => {
         if(!authorization) {
             
             const {
-                host, protocol
+                host,
+                protocol
             } = window.location;
 
             
@@ -76,7 +80,6 @@ router.beforeEach((to, from, next) => {
     const navigationStore = getNavigationStore();
     
     navigationStore.$state.showFooter = navigationDisplay.showFooter === undefined ? true : navigationDisplay.showFooter;
-    
     navigationStore.$state.showNavigationBar = navigationDisplay.showNavigationBar === undefined ? true : navigationDisplay.showNavigationBar;
     
     next();

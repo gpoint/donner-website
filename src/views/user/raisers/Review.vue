@@ -1,18 +1,10 @@
 <template>
     <div>
-        <header>
+        <div>
             <a href="/" class="position-fixed top-0 start-0" style="z-index: 200">
                 <img src="/favicon.ico" class=" bg-white border-radius-lg p-1 m-2" style="height: 50px;">
             </a>
             <div class="page-header min-vh-100" style="align-items: start;">
-<!--                <div class="position-fixed fixed-top ms-auto w-50 h-100 z-index-0 d-none d-sm-none d-md-block border-top-end-radius-0 border-top-start-radius-0 border-bottom-end-radius-0"
-                     style="background-image: url('/img/shapes/waves-green.png'); background-size:cover;">
-                </div>-->
-<!--                <div class="position-absolute bg-primary fixed-top me-auto w-100 h-100 z-index-0 d-md-block border-top-end-radius-0 border-top-start-radius-0 border-bottom-end-radius-0"
-                     style="background-size:cover;background-position: bottom left;">
-                    <div class="position-absolute fixed-top me-auto w-100 h-100 z-index-0 d-md-block border-top-end-radius-0 border-top-start-radius-0 border-bottom-end-radius-0"
-                         style="background-size:cover; background-image: url('/img/shapes/waves-white.svg');background-position: bottom left;"></div>
-                </div>-->
                 <div class="ps-0 pe-0 w-100 my-0 p-0 ">
                     <div class="row">
                         <div class="col-lg-12 d-flex justify-content-center flex-column my-0">
@@ -27,34 +19,25 @@
                                             <div class="row position-relative">
 <!--                                                    <div style="height: 50px; background: linear-gradient(90deg, #ffff, #fff); bottom: 0; position: fixed;"></div>-->
                                                 <div class="col-12">
-                                                    <div @click="openImageSelectionDialog" class="position-relative w-100 border border-light border-3 rounded-3 bg-gradient-light text-center align-items-center" style="height:300px; cursor: pointer;">
-                                                        <div ref="fundRaiserBannerImage" class="position-absolute opacity-2 w-100 h-100 d-none d-sm-none d-md-block border-top-end-radius-0 border-top-start-radius-0 border-bottom-end-radius-0"
+                                                    <div @click="openImageSelectionDialog" class="position-relative w-100 border border-light border-3 rounded-3 bg-gradient-light text-center align-items-center" style="height:300px; cursor: pointer; aspect-ratio: 16 / 9;">
+                                                        <div  v-if="!fundRaiser.bannerImage" class="position-absolute opacity-2 w-100 h-100 d-none d-sm-none d-md-block border-top-end-radius-0 border-top-start-radius-0 border-bottom-end-radius-0"
                                                              style="background-image: url('/img/shapes/waves-green.png'); background-size:cover;"></div>
 
-                                                        <span class="rounded-3 border bg-light opacity-8 d-inline-block p-3 mt-7 border-white">
-                                                            Click here to add a picture.
+                                                        <span class="rounded-3 border bg-light opacity-8 d-inline-block p-3 mt-7 border-white" v-if="!fundRaiser.bannerImage">
+                                                            Share an image
                                                             <br>
-                                                            <span class="text-sm"> ... it will be worth a thousand words.</span>
+                                                            <span class="text-sm"> It will be worth a thousand words.</span>
                                                         </span>
+                                                        
+                                                        <img :src="fundRaiser.bannerImage" style="object-fit: cover;" class="rounded-3" :class="fundRaiser.bannerImage ? 'w-100 h-100' : 'd-none'">
 
+                                                        <div class="position-absolute top-0 end-0 px-3">
+                                                            <button class="mt-3 btn btn-sm btn-rounded border-2 btn-outline-dark bg-gradient-light text-dark px-3 float-end">
+                                                                <i class="fa fa-pen" style="font-size: 12px"></i>
+                                                            </button>
+                                                        </div>
+                                                        
                                                         <input @change="openImageCropper" class="d-none" type="file" accept="image/*" ref="imageFileUploadInput" @click="openImageCropper">
-                                                    </div>
-                                                    <div>
-                                                        <VuePictureCropper
-                                                            :boxStyle="{
-                                                              width: '100%',
-                                                              height: '100%',
-                                                              backgroundColor: '#f8f8f8',
-                                                              margin: 'auto',
-                                                            }"
-                                                            :img="bannerImage"
-                                                            :options="{
-                                                              viewMode: 1,
-                                                              dragMode: 'crop',
-                                                              aspectRatio: 16 / 9,
-                                                            }"
-                                                            @ready="ready"
-                                                          />
                                                     </div>
                                                 </div>
 
@@ -68,7 +51,7 @@
                                                             </h5>
                                                         </div>
                                                         <div class="col-2">
-                                                            <button class="mt-3 btn btn-sm btn-rounded border-2 btn-outline-dark text-bold text-dark px-3 float-end">
+                                                            <button class="mt-3 btn btn-sm btn-rounded border-2 btn-outline-dark bg-gradient-light text-dark px-3 float-end" @click="edit = 'title'; showModal = true;">
                                                                 <i class="fa fa-pen" style="font-size: 12px"></i>
                                                             </button>
                                                         </div>
@@ -82,7 +65,7 @@
                                                             </h6>
                                                         </div>
                                                         <div class="col-2">
-                                                            <button class="mt-3 btn btn-sm btn-rounded border-2 btn-outline-dark text-bold text-dark px-3 float-end">
+                                                            <button class="mt-3 btn btn-sm btn-rounded border-2 btn-outline-dark bg-gradient-light text-dark px-3 float-end">
                                                                 <i class="fa fa-pen" style="font-size: 12px"></i>
                                                             </button>
                                                         </div>
@@ -98,7 +81,7 @@
                                                             </h6>
                                                         </div>
                                                         <div class="col-2">
-                                                            <button class="mt-3 btn btn-sm btn-rounded border-2 btn-outline-dark text-bold text-dark px-3 float-end">
+                                                            <button class="mt-3 btn btn-sm btn-rounded border-2 btn-outline-dark bg-gradient-light text-dark px-3 float-end">
                                                                 <i class="fa fa-pen" style="font-size: 12px"></i>
                                                             </button>
                                                         </div>
@@ -122,7 +105,7 @@
                                                             </h6>
                                                         </div>
                                                         <div class="col-2">
-                                                            <button class="mt-3 btn btn-sm btn-rounded border-2 btn-outline-dark text-bold text-dark px-3 float-end">
+                                                            <button class="mt-3 btn btn-sm btn-rounded border-2 btn-outline-dark bg-gradient-light text-dark px-3 float-end">
                                                                 <i class="fa fa-plus" style="font-size: 12px"></i>
                                                             </button>
                                                         </div>
@@ -136,7 +119,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="col-2">
-                                                            <button class="mt-3 btn btn-sm btn-rounded border-2 btn-outline-dark text-bold text-dark px-3 float-end">
+                                                            <button class="mt-3 btn btn-sm btn-rounded border-2 btn-outline-dark bg-gradient-light text-dark px-3 float-end">
                                                                 <i class="fa fa-pen" style="font-size: 12px"></i>
                                                             </button>
                                                         </div>
@@ -154,8 +137,8 @@
                                             <BaseButton type="light" class="mx-4 d-none d-sm-inline">
                                                 Preview
                                             </BaseButton>
-                                            <BaseButton>
-                                                Start
+                                            <BaseButton @click="startRaising">
+                                                Start Raising
                                             </BaseButton>
                                         </div>
                                     </div>
@@ -165,8 +148,55 @@
                     </div>
                 </div>
             </div>
-        </header>
-        <!-- -------- START HEADER 5 w/ text and illustration ------- -->
+        </div>
+        <modal v-model:show="showModal" body-classes="p-0" modal-classes="modal-lg">
+            <div class="card bg-transparent p-3">
+                <button @click="showModal = false"
+                    class="position-absolute end-0 me-3 mt-n1 btn btn-sm text-dark bg-gradient-light border border-white px-2 py-1">
+                    <i class="fa fa-times" style="font-size: 16px"></i>
+                </button>
+                <div class="mx-1 border-radius-md row bg-gray-200" style="overflow: hidden;">
+                    <div class="col-12">
+                        <div class="my-4 p-4">
+                            <div class="row">
+                                <div class="col-12">
+                                    <form-message v-model:html="response.message" :type="response.type"></form-message>
+                                    <div class="row">
+                                        <div class="col-12" v-if="edit === 'bannerImage'">
+                                            <div class="form-group px-2">
+                                                <VuePictureCropper
+                                                    :boxStyle="{
+                                                      width: '100%',
+                                                      height: '100%',
+                                                      backgroundColor: '#f8f8f8',
+                                                      margin: 'auto',
+                                                    }"
+                                                    :img="picture"
+                                                    :options="{
+                                                      viewMode: 1,
+                                                      dragMode: 'crop',
+                                                      aspectRatio: 16 / 9,
+                                                    }"
+                                                  />
+                                            </div>
+                                            <base-button :loading="loading" type="button" @click="saveCroppedBannerImage" class=" bg-gradient-primary float-end">Save</base-button>
+                                        </div>
+                                        <form @submit.prevent="updateFundRaiser" class="col-12" v-if="edit === 'title'">
+                                            <div class="form-group mb-3">
+                                                <label>Title <span class="text-primary">*</span></label>
+                                                <input required class="form-control form-control-alternative"
+                                                    placeholder="Title can not be blank" v-model="fundRaiser.title">
+                                            </div>
+                                            <base-button :loading="loading" nativeType="submit" type="primary" class=" bg-gradient-primary float-end">Save</base-button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </modal>
     </div>
 </template>
 
@@ -175,15 +205,20 @@
     import VuePictureCropper, { cropper } from 'vue-picture-cropper'
     import { QuillEditor } from '@vueup/vue-quill'
     import '@vueup/vue-quill/dist/vue-quill.bubble.css';
+    
 
     /* components */
-    import ChipContainer from '@/components/forms/ChipContainer.vue';
-    import SDGSelect from '@/components/forms/SDGSelect.vue';
     import BaseButton from "@/components/forms/BaseButton.vue"
+    import ChipContainer from '@/components/forms/ChipContainer.vue';
+    import FormMessage from '@/components/forms/FormMessage.vue';
+    import Modal from '@/components/modals/Modal.vue'
+    import SDGSelect from '@/components/forms/SDGSelect.vue';
+
 
     /* services */
     import ConfigurationService from '@/services/ConfigurationService';
     import FundRaiserService from '@/services/FundRaiserService';
+    import ImageUploadService from '@/services/ImageUploadService';
     import NavigationService from '@/services/NavigationService';
     import UserService  from "@/services/UserService";
     
@@ -192,30 +227,34 @@
     
     /* utilities */
     import FormUtility from "@/utilities/FormUtility";
-
+    
     export default {
         components: {
-            QuillEditor,
-            ChipContainer,
-            SDGSelect,
             BaseButton,
+            ChipContainer,
+            FormMessage,
+            Modal,
+            SDGSelect,
             VuePictureCropper
         },
         data() {
             return {
-                user: null,
-                loading: true,
                 categories: [],
-                isLoggedIn: false,
-                bannerImage: "",
-                fundRaiser: {}
+                croppedImage: "",
+                edit: 'none',
+                fundRaiser: {},
+                loading: false,
+                picture: "",
+                response: {},
+                showModal: false,
+                user: null
             };
         },
         async beforeMount() {
             
-            this.isLoggedIn = await UserService.get('isLoggedIn');
+            const isLoggedIn = await UserService.get('isLoggedIn');
             
-            if(!this.isLoggedIn) {
+            if(!isLoggedIn) {
                 
                  await NavigationService.set("postAuthenticationPath", "/raisers/review");
                 
@@ -223,19 +262,21 @@
                 
             }
             
-            const fundRaiser = await FundRaiserService.get("draftFundRaiser");
+            const fundRaiserId = this.$route.params.id;
             
-            if(!fundRaiser) {
+            try {
+                const fundRaiser = fundRaiserId ? await FundRaiserService.getFundRaiserById(fundRaiserId) : await FundRaiserService.get("draftFundRaiser");
                 
-                return this.$router.push("/me/raisers");
+                if(!fundRaiser) {
+                    throw new Error("Unable to fetch raiser");
+                }
+                
+                this.fundRaiser = fundRaiser;
+            } catch (error) {
+                this.$router.push("/me/raisers");
             }
-            
-            this.fundRaiser = fundRaiser;
         },
-        async beforeUnMount() {
-            
-//            FundRaiserService.clear("draftFundRaiser");
-        },
+        
         computed: {
             
             categoryNames() {
@@ -257,6 +298,7 @@
                 }
             }
         },
+        
         methods: {
 
             formatAmount(amount) {
@@ -268,24 +310,105 @@
             },
             
             openImageSelectionDialog() {
+                
                 this.$refs.imageFileUploadInput.click();
             },
             
             openImageCropper(event) {
                 
-                const image = event.target.files[0];
+                this.picture = "";
+                this.croppedImage = "";
+
+                // Get selected files
+                const file = event.target.files[0];
                 
-                console.log(image);
+                // Convert to dataURL and pass to the cropper component
+                const reader = new FileReader();
                 
-//                this.bannerImage = image.data
+                reader.onload = () => {
+                    // Update the picture source of the `img` prop
+                    this.picture = String(reader.result);
+
+                    // Show the modal
+                    this.edit = "bannerImage";
+                    this.showModal = true;
+
+                    // Clear selected files of input element
+                    event.target.value = "";
+                };
+                
+                try {
+                    reader.readAsDataURL(file);
+                }catch(error) {
+                    console.log(error.message);
+                }
+                
             },
             
-            ready(){
-//                ;
+            async saveCroppedBannerImage() {
+                
+                this.loading = true;
+                
+                if (!cropper) { 
+                    return;
+                }
+                
+                try {
+                    
+                    const file = await cropper.getFile();
+
+                    const response = await ImageUploadService.uploadBannerImage(file);
+
+                    this.fundRaiser.bannerImage = response.secure_url;
+                    
+                    await this.updateFundRaiser();
+                    
+                } catch(error) {
+                    
+                    console.log(error.message);
+                }
             },
 
-            async update(field) {
-
+            async updateFundRaiser() {
+                
+                this.loading = true;
+                
+                const payload = {};
+                
+                payload[this.edit] = this.fundRaiser[this.edit];
+                
+                
+                try {
+                    
+                    const {data, meta} = await FundRaiserService.updateFundRaiser(this.fundRaiser.id, payload);
+                    
+                    
+                    this.response = {
+                        message: "Raiser updated successfully",
+                        type: 'success'
+                    };
+                    
+                    this.fundRaiser = data;
+                    
+                    FundRaiserService.set("draftFundRaiser", data);
+                    
+                    setTimeout(() => {
+                        this.showModal = false;
+                    }, 2000);
+                    
+                } catch(error) {
+                    
+                    this.response = {
+                        message: error.message,
+                        type: 'danger'
+                    };
+                }
+                
+                this.loading = false;
+            },
+            
+            async startRaising() {
+                
             }
 
         }
@@ -293,50 +416,6 @@
     }
 </script>
 <style>
-    div.ql-container.ql-bubble{
-        overflow: scroll scroll;
-        position: absolute;
-        width: 80%;
-        height: 195px;
-    }
-
-    .form-section {
-        opacity: 0;
-        min-height: 0;
-        display: none;
-    }
-
-    .form-section.active {
-        opacity: 1;
-        display: block;
-        -webkit-animation: fadeinout 1s linear;
-        animation: fadeinout 1s linear;
-    }
-    
-    #storyReviewBoard > p {
-        
-        font-size: 18px;
-        font-weight: 600;
-    }
-
-    @-webkit-keyframes fadeinout {
-        0% {
-            opacity: 0;
-        }
-        100% {
-            opacity: 1;
-        }
-    }
-
-    @keyframes fadeinout {
-        0% {
-            opacity: 0;
-        }
-        100% {
-            opacity: 1;
-        }
-    }
-    
     #reviewPane {
         left: 0px;
         -webkit-animation: slide 1.5s ease-out;

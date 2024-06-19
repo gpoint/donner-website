@@ -42,7 +42,7 @@ export default {
         }
     },
 
-    get: async (resource, {query, headers}) => {
+    get: async (resource, {query, headers, authorizeRequest = false}) => {
         
         let stringifiedQuery = "";
 
@@ -133,7 +133,7 @@ export default {
         }
     },
 
-    del: async (resource, {query, headers}) => {
+    'delete' : async (resource, {query, headers}) => {
         return;
     }
 }

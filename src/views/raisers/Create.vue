@@ -77,16 +77,16 @@
                                     <div class="form-section " :class="{'active': currentStep == 4}">
                                         <h6 class="mb-2 mt-3">Are you doing this on behalf of a registered organization?</h6>
                                         <div class="row pt-3 h-100">
-                                            <div class="p-4 col-sm-6 h-100">
-                                                <button class="card card-background card-background-mask-dark move-on-hover border-white border-2" @click="newFundRaiser.type = 'TEAM'; next()">
+                                            <div class="p-4 col-sm-6">
+                                                <button class="card card-background card-background-mask-dark move-on-hover border-white border-2 h-100" @click="newFundRaiser.type = 'TEAM'; next()">
                                                     <div class="card-body pt-3 text-start">
                                                         <h4 class="text-white">I Have A Team</h4>
                                                         <p>You are fundraising on behalf of an organization registered in {{ newFundRaiser.country }}. </p>
                                                     </div>
                                                 </button>
                                             </div>
-                                            <div class="p-4 col-sm-6 h-100">
-                                                <button class="card card-background card-background-mask-primary move-on-hover border-white border-2" @click="newFundRaiser.type = 'PERSONAL'; next()">
+                                            <div class="p-4 col-sm-6">
+                                                <button class="card card-background card-background-mask-primary move-on-hover border-white border-2 h-100" @click="newFundRaiser.type = 'PERSONAL'; next()">
                                                     <div class="card-body pt-3 text-start">
                                                         <h4 class="text-white">It's Personal</h4>
                                                         <p>You are fundraising to support your community, family, or personal dream. </p>
@@ -144,7 +144,7 @@
 
                                                 </div>
                                                 <a href="#" @click.prevent="generateTitles" class="text-gradient text-primary text-bold text-sm mx-2 mt-2">
-                                                    ... or choose an AI suggested titles.
+                                                    ... or pick one from AI suggested titles.
                                                 </a>
                                             </div>
                                             <div class="form-group">

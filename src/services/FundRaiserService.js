@@ -22,7 +22,7 @@ const getters = {
     newFundRaiserIsComplete: (value) => {
         return JSON.parse(window.localStorage.getItem('newFundRaiserIsComplete') || 'false');
     },
-    
+
     draftFundRaiser: () => {
         return JSON.parse(window.localStorage.getItem('draftFundRaiser'));
     }
@@ -84,7 +84,7 @@ export default {
             throw new Error(`Unable to set ${name}`);
         }
     },
-    
+
     async clear(name) {
         try {
             clearers[name]();
@@ -92,50 +92,36 @@ export default {
             throw new Error(`Unable to clear ${name}`);
         }
     },
-    
-    async getFundRaiserById(fundRaiserId) {
-        
-        try {
-            
-            const {data: fundRaiser} = await API.get(`fundraisers/${fundRaiserId}`);
-            
-            return fundRaiser;
-            
-        }catch(error) {
-            
-            throw error;
-        }
-    },
 
     async commitNewFundRaiser(newFundRaiser) {
-        
+
         try {
-            
+
             const {data: fundRaiser} = await API.post("fundraisers", {
                 data: {
                     ...newFundRaiser
                 },
                 authorizeRequest: true
             });
-            
+
             await this.set("draftFundRaiser", fundRaiser);
-            
+
             this.clear("newFundRaiser");
             this.clear("newFundRaiserIsComplete");
             this.clear("createFundRaiserCurrentStep");
 
             return fundRaiser;
-            
+
         } catch (error) {
-               
+
             throw error;
         }
     },
 
     async generateTitlesForStory(story) {
-        
+
         try {
-            
+
             const {data: titles} = await API.post("fundraiser/story", {
                 data: {
                     story
@@ -143,16 +129,50 @@ export default {
             });
 
             return titles;
-            
-        } catch(error) {
-            
+
+        } catch (error) {
+
             notificationStore.toast({
                 message: error.message,
                 duration: 5000
             });
-            
+
             throw error;
         }
+    },
 
+    async getFundRaiserById(fundRaiserId) {
+
+        try {
+
+            const {data: fundRaiser} = await API.get(`me/fundraisers/${fundRaiserId}`, {
+                authorizeRequest: true
+            });
+
+            return fundRaiser;
+
+        } catch (error) {
+
+            throw error;
+        }
+    },
+
+    async updateFundRaiser(id, data) {
+
+        try {
+
+            const response = await API.patch(`me/fundraisers/${id}`, {
+                data: {
+                    ...data
+                },
+                authorizeRequest: true
+            });
+
+            return response;
+
+        } catch (error) {
+
+            throw error;
+        }
     }
 };
